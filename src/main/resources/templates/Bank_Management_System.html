@@ -1,0 +1,551 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SysBank | Modern Digital Banking Solutions</title>
+  <meta name="description" content="Experience premium digital banking with SysBank. Secure, innovative financial solutions for individuals and businesses.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+   <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+   <link rel="stylesheet" th:href="@{/css/Bank_Management_System.css}">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-university"></i>SysBank
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#testimonials">Testimonials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 hero-content">
+        <div class="security-badge animate__animated animate__fadeIn">
+          <i class="fas fa-shield-alt"></i>
+          <span>FDIC Secure • 256-bit Encryption</span>
+        </div>
+        <h1 class="hero-title animate__animated animate__fadeInUp">Banking Reimagined for the Digital Age</h1>
+        <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">Experience seamless banking with our cutting-edge digital platform designed for your financial needs. No hidden fees, no paperwork, just smart banking.</p>
+        
+        <ul class="feature-list animate__animated animate__fadeInUp animate__delay-1s">
+          <li><i class="fas fa-check"></i> 24/7 Account Access with Mobile App</li>
+          <li><i class="fas fa-check"></i> Instant Money Transfers & Payments</li>
+          <li><i class="fas fa-check"></i> Advanced Security & Fraud Protection</li>
+          <li><i class="fas fa-check"></i> Personalized Financial Insights & Tools</li>
+        </ul>
+        
+        <div class="d-flex flex-wrap gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+          <a th:href="@{/main/create}" class="btn btn-primary btn-lg">
+            <i class="fas fa-user-plus me-2"></i>Open Account
+          </a>
+          <a href="#app-download" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-mobile-alt me-2"></i>Get Mobile App
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block animate__animated animate__fadeInRight">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner rounded-4 shadow-lg" style="border: 12px solid white;">
+            <div class="carousel-item active">
+              <img th:src="@{/Images/Carosal5.jpg}"
+                   class="d-block w-100" 
+                   alt="Professional banking team">
+            </div>
+            <div class="carousel-item">
+            <img th:src="@{/Images/carosal6.jpg}" 
+                   class="d-block w-100" 
+                   alt="Mobile banking app">
+            </div>
+            <div class="carousel-item">
+            <img th:src="@{/Images/Carosal7.jpg}"
+                   class="d-block w-100" 
+                   alt="Financial meeting">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Account Choice Section -->
+  <section class="section section-white" id="account-choice">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Get Started with SysBank</h2>
+        <p class="section-subtitle">Join millions of customers who trust us with their financial needs</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card account-card fade-in">
+            <div class="account-icon">
+              <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <h3>Existing Customers</h3>
+            <p>Access your accounts, manage finances, and utilize our full suite of banking services with our secure online banking platform.</p>
+            <a th:href="@{/main/login}" class="btn btn-primary"><i class="fas fa-lock me-2"></i>Secure Login</a>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card account-card fade-in delay-1">
+            <div class="account-icon">
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <h3>New Customers</h3>
+            <p>Open an account in minutes and enjoy our premium banking services with exclusive benefits tailored to your financial goals.</p>
+            <a th:href="@{/main/register}" class="btn btn-primary"><i class="fas fa-rocket me-2"></i>Get Started Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section section-light" id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                 class="img-fluid rounded-3 shadow-lg w-100" 
+                 alt="Our Team">
+            <div class="position-absolute bottom-0 end-0 bg-white p-3 rounded shadow-sm" style="transform: translate(20px, 20px);">
+              <div class="d-flex align-items-center">
+                <div class="bg-primary text-white rounded-circle p-3 me-3">
+                  <i class="fas fa-award fa-lg"></i>
+                </div>
+                <div>
+                  <h5 class="mb-0">Best Digital Bank</h5>
+                  <small class="text-muted">2023 Financial Times</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="section-title">About SysBank</h2>
+          <p class="mb-4">Founded in 2008, SysBank has grown to become a leading digital banking platform serving over 5 million customers worldwide. Our mission is to simplify banking while providing exceptional financial services through innovative technology and personalized solutions.</p>
+          
+          <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+              <div class="card stats-card fade-in">
+                <div class="stats-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h3 class="stats-number">5M+</h3>
+                <p class="stats-label">Satisfied Customers</p>
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+              <div class="card stats-card fade-in delay-1">
+                <div class="stats-icon">
+                  <i class="fas fa-globe"></i>
+                </div>
+                <h3 class="stats-number">12</h3>
+                <p class="stats-label">Countries Served</p>
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+              <div class="card stats-card fade-in">
+                <div class="stats-icon">
+                  <i class="fas fa-award"></i>
+                </div>
+                <h3 class="stats-number">25+</h3>
+                <p class="stats-label">Industry Awards</p>
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+              <div class="card stats-card fade-in delay-1">
+                <div class="stats-icon">
+                  <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3 class="stats-number">$15B</h3>
+                <p class="stats-label">Assets Managed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section section-white" id="services">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Our Banking Services</h2>
+        <p class="section-subtitle">Comprehensive financial solutions tailored to your personal and business needs</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card service-card fade-in">
+            <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                 class="card-img-top" 
+                 alt="Account Management">
+            <div class="card-body">
+              <div class="service-icon">
+                <i class="fas fa-wallet"></i>
+              </div>
+              <h3>Account Management</h3>
+              <p>Manage all your accounts in one place with our intuitive dashboard and mobile app. Real-time updates and seamless transactions.</p>
+              <a href="#" class="btn btn-outline-primary mt-3">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card service-card fade-in delay-1">
+            <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                 class="card-img-top" 
+                 alt="Loan Services">
+            <div class="card-body">
+              <div class="service-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+              </div>
+              <h3>Loan Services</h3>
+              <p>Competitive loan options with flexible repayment plans and instant approval. Personal, auto, and mortgage solutions available.</p>
+              <a href="#" class="btn btn-outline-primary mt-3">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card service-card fade-in delay-2">
+            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                 class="card-img-top" 
+                 alt="Investment">
+            <div class="card-body">
+              <div class="service-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3>Investment Solutions</h3>
+              <p>Grow your wealth with our expert-curated investment portfolios and advisory services tailored to your risk profile.</p>
+              <a href="#" class="btn btn-outline-primary mt-3">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+<!-- Testimonials Carousel Section -->
+<section class="section section-light" id="testimonials">
+  <div class="container overflow-hidden">
+    <div class="text-center mb-5">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-subtitle">Trusted by thousands of happy customers worldwide</p>
+    </div>
+
+    <div class="testimonial-slider">
+      <div class="slider-track">
+
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <p class="quote">"SysBank has completely transformed how I manage my finances..."</p>
+          <div class="testimonial-author">
+            <img src="/Images/karan.jpg" alt="Karan More">
+            <div class="author-info">
+              <h5>Karan More</h5>
+              <p>Founder Of Sys Bank</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <p class="quote">"The investment tools and advice from SysBank helped me grow my retirement savings..."</p>
+          <div class="testimonial-author">
+            <img src="/Images/Azim.jpg">
+            <div class="author-info">
+              <h5>Azeem Ansari</h5>
+              <p>Owner Of Sys Bank</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <p class="quote">"As someone who travels frequently, I love how easy it is to bank with SysBank..."</p>
+          <div class="testimonial-author">
+            <img src="/Images/Aayush.jpg">
+            <div class="author-info">
+              <h5>Aayush Chalke</h5>
+              <p>International Consultant</p>
+            </div>
+          </div>
+        </div>
+        
+	       <!-- Testimonial 1 -->
+	<div class="testimonial-card">
+	  <blockquote>
+	    “SysBank has completely transformed how I manage my finances — from intuitive interfaces to lightning-fast support, it’s simply the best.”
+	  </blockquote>
+	  <div class="testimonial-author">
+	    <img src="/Images/Santosh.jpg" alt="Santosh Thakur">
+	    <div class="author-info">
+	      <h5>Santosh Thakur</h5>
+	      <p>Small Business Owner</p>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Testimonial 2 -->
+	<div class="testimonial-card">
+	  <blockquote>
+	    “Thanks to SysBank’s smart investment insights, I’ve been able to diversify my portfolio and plan my future with confidence.”
+	  </blockquote>
+	  <div class="testimonial-author">
+	    <img src="/Images/suraj.jpg" alt="Suraj Gupta">
+	    <div class="author-info">
+	      <h5>Suraj Gupta</h5>
+	      <p>Retired Government Officer</p>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Testimonial 3 -->
+	<div class="testimonial-card">
+	  <blockquote>
+	    “Wherever I go in the world, SysBank travels with me. Their mobile banking experience is seamless and secure.”
+	  </blockquote>
+	  <div class="testimonial-author">
+	    <img src="/Images/yash.jpg" alt="Yash Mirashi">
+	    <div class="author-info">
+	      <h5>Yash Mirashi</h5>
+	      <p>Frequent Business Traveler</p>
+	    </div>
+	  </div>
+	</div>
+       
+
+        <!-- Add more testimonials here (optional) -->
+
+      </div>
+    </div>
+  </div>
+</section>
+  
+  
+
+  <!-- Contact Section -->
+  <section class="section section-white" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 mb-5 mb-lg-0">
+          <h2 class="section-title mb-4">Contact Us</h2>
+          <p class="mb-4">Have questions or need assistance? Our team is available to help you with all your banking needs.</p>
+          
+          <div class="contact-info">
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-map-marker-alt mt-1"></i>
+              <div>
+                <h5 class="mb-1">Headquarters</h5>
+                <p>12/5 Bandra Kurla Complex, Mumbai 400070, India</p>
+              </div>
+            </div>
+            
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-phone-alt mt-1"></i>
+              <div>
+                <h5 class="mb-1">Customer Support</h5>
+                <p>+91 22 1234 5678</p>
+                <p>Available 24/7</p>
+              </div>
+            </div>
+            
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-envelope mt-1"></i>
+              <div>
+                <h5 class="mb-1">Email Us</h5>
+                <p>support@sysbank.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-7">
+          <div class="contact-form">
+            <h3 class="mb-4">Send a Message</h3>
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" placeholder="your@email.com" required>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Subject <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Subject" required>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Message <span class="text-danger">*</span></label>
+                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+              </div>
+              
+              <button type="submit" class="btn btn-primary w-100 py-3">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <a href="#" class="footer-logo">
+            <i class="fas fa-university"></i>SysBank
+          </a>
+          <p class="footer-about">SysBank is a leading digital banking platform committed to providing secure, innovative, and customer-centric financial solutions to individuals and businesses worldwide.</p>
+          
+          <div class="social-links mt-4">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <div class="footer-links">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+          <div class="footer-links">
+            <h5>Services</h5>
+            <ul>
+              <li><a href="#">Personal Banking</a></li>
+              <li><a href="#">Business Accounts</a></li>
+              <li><a href="#">Loans & Mortgages</a></li>
+              <li><a href="#">Investment Plans</a></li>
+              <li><a href="#">Credit Cards</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-4">
+          <div class="footer-links">
+            <h5>Newsletter</h5>
+            <p>Subscribe to our newsletter for the latest updates and offers.</p>
+            <form class="mt-3">
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+                <button class="btn btn-primary" type="submit">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+              <small class="text-muted">We'll never share your email with anyone else.</small>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom text-center">
+        <p class="mb-0">&copy; 2023 SysBank. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Security</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        document.querySelector('.navbar').classList.add('scrolled');
+      } else {
+        document.querySelector('.navbar').classList.remove('scrolled');
+      }
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Animation on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementPosition < windowHeight - 100) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }
+    
+    // Initialize animations
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+  </script>
+</body>
+</html>

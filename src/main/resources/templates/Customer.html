@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details | Sys Bank</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+     <link rel="stylesheet" th:href="@{/css/Customer.css}">
+</head>
+<body>
+      <!-- Sys Bank Header -->
+    <header class="sysbank-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="sysbank-logo">
+                    <i class="fas fa-university me-2"></i>Sys Bank
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/home"><i class="fas fa-home me-1"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/customers"><i class="fas fa-users me-1"></i> Customers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/main/logout"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="mb-0"><i class="fas fa-users me-2 text-primary"></i>Customer Management</h2>
+                    <p class="text-muted mb-0"></p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="stats-card">
+                        <h4 class="mb-0" th:text="${totalCustomers ?: 0}">0</h4>
+                        <small>Total Customers</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Messages -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Customer Cards Grid -->
+        <div th:if="${customer != null and !customer.empty}" class="row">
+            <div th:each="cust : ${customer}" class="col-lg-4 col-md-6 col-12">
+                <div class="customer-card">
+                    <!-- Card Header -->
+                    <div class="customer-card-header">
+                        <div class="customer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="customer-info">
+                            <h5 th:text="${cust.firstname + ' ' + cust.lastname}">Customer Name</h5>
+                            <small th:text="'ID: ' + ${cust.id}">ID: </small>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="customer-card-body">
+                        <div class="info-row">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" th:text="${cust.email}">email@example.com</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value" th:text="${cust.phoneNo ?: 'Not provided'}">Not provided</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Account Type</span>
+                            <span class="info-value" th:text="${cust.accountType ?: 'SAVINGS'}">SAVINGS</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Balance</span>
+                            <span class="info-value balance-amount" th:text="'₹' + ${#numbers.formatDecimal(cust.balance, 1, 2)}">₹0.00</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Status</span>
+                            <span class="account-status" 
+                                  th:class="'account-status status-' + ${cust.accountStatus?.toLowerCase() ?: 'active'}"
+                                  th:text="${cust.accountStatus ?: 'ACTIVE'}">ACTIVE</span>
+                        </div>
+                        <div class="info-row" th:if="${cust.createdAt}">
+                            <span class="info-label">Joined</span>
+                            <span class="info-value" th:text="${#temporals.format(cust.createdAt, 'dd MMM yyyy')}">Date</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="card-actions">
+                        <a th:href="@{'/admin/delete/' + ${cust.id}}" class="btn btn-view btn-admin">
+                            <i class="fas fa-trash me-1"></i> Delete
+                        </a>
+                        <a th:href="@{'/admin/edit/' + ${cust.id}}" class="btn btn-edit btn-admin">
+                            <i class="fas fa-edit me-1"></i> Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div th:if="${customer == null or customer.empty}" class="empty-state">
+            <i class="fas fa-users"></i>
+            <h4>No Customers Found</h4>
+            <p class="text-muted">
+                <span th:if="${searchTerm}">No customers found matching "<strong th:text="${searchTerm}"></strong>"</span>
+                <span th:unless="${searchTerm}">No customers are registered in the system yet.</span>
+            </p>
+            <a href="/admin/home" class="btn btn-primary">
+                <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Sys Bank Footer -->
+    <footer class="sysbank-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p>&copy; 2023 Sys Bank. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end footer-links">
+                    <a href="#"><i class="fas fa-phone-alt me-1"></i> Contact Us</a>
+                    <a href="#"><i class="fas fa-question-circle me-1"></i> Help</a>
+                    <a href="#"><i class="fas fa-shield-alt me-1"></i> Security</a>
+                    <a href="#"><i class="fas fa-file-alt me-1"></i> Privacy Policy</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <small class="text-light">Sys Bank is regulated by the Reserve Bank of India</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

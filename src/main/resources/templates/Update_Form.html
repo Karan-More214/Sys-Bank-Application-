@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/Update_Form.css}">
+    <title>Sys Bank - Update Account</title>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Sys Bank</div>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/admin/home}">Home</a></li>
+                    <li><a th:href="@{/admin/customers}">Customers</a></li>
+                    <li><a href="#">Loans</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Update Customer Account Information</h1>
+            <p>Keep customer account details up to date to ensure uninterrupted banking services and security.</p>
+        </div>
+    </section>
+
+    <!-- Display success/error messages -->
+    <div th:if="${success}" class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 1rem; margin: 1rem auto; border-radius: 5px; max-width: 800px;">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}" class="alert alert-error" style="background-color: #f8d7da; color: #721c24; padding: 1rem; margin: 1rem auto; border-radius: 5px; max-width: 800px;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form id="update-form" class="account-form container" th:action="@{/admin/update}" th:object="${bank}" method="post">
+        <h2 class="form-title">Customer Account Update Form</h2>
+
+        <!-- Hidden ID field for update -->
+        <input type="hidden" name="id" th:value="${bank.id}" />
+
+        <div class="form-group">
+            <h3>Personal Information</h3>
+        </div>
+
+        <div class="form-row">
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="firstname">First Name*</label>
+                    <input type="text" id="firstname" name="firstname" th:value="${bank.firstname}" required>
+                    <div class="error" id="firstname-error" style="display:none;">Please enter first name</div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="lastname">Last Name*</label>
+                    <input type="text" id="lastname" name="lastname" th:value="${bank.lastname}" required>
+                    <div class="error" id="lastname-error" style="display:none;">Please enter last name</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="dob">Date of Birth*</label>
+                    <input type="date" id="dob" name="dob" th:value="${bank.dob}" required>
+                    <div class="error" id="dob-error" style="display:none;">Please enter your date of birth</div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="">Select</option>
+                        <option value="MALE" th:selected="${bank.gender == 'MALE'}">Male</option>
+                        <option value="FEMALE" th:selected="${bank.gender == 'FEMALE'}">Female</option>
+                        <option value="OTHER" th:selected="${bank.gender == 'OTHER'}">Other</option>
+                        <option value="PREFER_NOT_TO_SAY" th:selected="${bank.gender == 'PREFER_NOT_TO_SAY'}">Prefer not to say</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address*</label>
+            <input type="email" id="email" name="email" th:value="${bank.email}" required>
+            <div class="error" id="email-error" style="display:none;">Please enter a valid email address</div>
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNo">Phone Number*</label>
+            <input type="tel" id="phoneNo" name="phoneNo" th:value="${bank.phoneNo}" required>
+            <div class="error" id="phoneNo-error" style="display:none;">Please enter a valid phone number</div>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Residential Address*</label>
+            <textarea id="address" name="address" rows="3" required th:text="${bank.address}"></textarea>
+            <div class="error" id="address-error" style="display:none;">Please enter your address</div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-col">
+                <button type="submit" class="btn btn-submit">Update Customer</button>
+            </div>
+            <div class="form-col">
+                <a th:href="@{/admin/customers}" class="btn" style="background-color: #6c757d; color: white; width: 100%; padding: 1rem; font-size: 1.1rem; text-decoration: none; display: inline-block; text-align: center;">Cancel</a>
+            </div>
+        </div>
+    </form>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQ</a>
+            </div>
+            <p>&copy; 2023 Global Trust Bank. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ✅ Corrected JavaScript -->
+    <script>
+        document.getElementById('update-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Reset errors
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+            // Corrected field IDs
+            const requiredFields = [
+                'firstname', 'lastname', 'dob', 'email',
+                'phoneNo', 'address'
+            ];
+
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field || !field.value.trim()) {
+                    const errorDiv = document.getElementById(`${fieldId}-error`);
+                    if (errorDiv) errorDiv.style.display = 'block';
+                    isValid = false;
+                }
+            });
+
+            // Validate email format
+            const email = document.getElementById('email');
+            if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate phone number format
+            const phone = document.getElementById('phoneNo');
+            if (phone.value && !/^[\d\s\-\(\)\+]{10,}$/.test(phone.value)) {
+                document.getElementById('phoneNo-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>

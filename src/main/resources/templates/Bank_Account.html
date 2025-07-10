@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+    <title>Global Trust Bank - Open New Account</title>
+   <link rel="stylesheet" th:href="@{/css/Bank_Account.css}">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Sys Bank</div>
+            <nav>
+                <ul>
+                    <li><a href="../Html/Bank_Management_System.html">Home</a></li>
+                    <li><a href="#">Accounts</a></li>
+                    <li><a href="#">Loans</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Open Your New Bank Account</h1>
+            <p>Join millions of satisfied customers with our easy online account opening process. Enjoy competitive rates, digital banking, and premium services.</p>
+            <a href="#account-form" class="btn">Start Application</a>
+        </div>
+    </section>
+    
+    <form id="account-form" class="account-form container" th:action="@{/bank/submit-form}" method="post">
+        <h2 class="form-title">Account Application Form</h2>
+        
+        <div class="form-group">
+            <h3>Personal Information</h3>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="Firstname">First Name*</label>
+                    <input type="text" id="Firstname" name="Firstname" required>
+                    <div class="error" id="first-name-error">Please enter your first name</div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="Lastname">Last Name*</label>
+                    <input type="text" id="Lastname" name="Lastname" required>
+                    <div class="error" id="last-name-error">Please enter your last name</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="dob">Date of Birth*</label>
+                    <input type="date" id="dob" name="dob" required>
+                    <div class="error" id="dob-error">Please enter your date of birth</div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="form-group">
+                    <label for="Gender">Gender</label>
+                    <select id="Gender" name="Gender">
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="Email">Email Address*</label>
+            <input type="email" id="Email" name="Email" required>
+            <div class="error" id="email-error">Please enter a valid email address</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="PhoneNo">Phone Number*</label>
+            <input type="tel" id="PhoneNo" name="PhoneNo" required>
+            <div class="error" id="phone-error">Please enter a valid phone number</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="Address">Residential Address*</label>
+            <textarea id="Address" name="Address" rows="3" required></textarea>
+            <div class="error" id="address-error">Please enter your address</div>
+        </div>
+        
+        <div class="form-group">
+            <h3>Account Details</h3>
+        </div>
+        
+        <div class="form-group">
+            <label>Account Type*</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="saving" name="AccountType" value="savings" required>
+                    <label for="savings">Savings Account</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="current" name="AccountType" value="current">
+                    <label for="current">Current Account</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="joint" name="AccountType" value="joint">
+                    <label for="joint">Joint Account</label>
+                </div>
+            </div>
+            <div class="error" id="account-type-error">Please select an account type</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="Balance">Initial Deposit Amount (₹)*</label>
+            <input type="number" id="Balance" name="Balance" min="500" required>
+            <div class="error" id="deposit-error">Minimum initial deposit is ₹500</div>
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox">
+                <input type="checkbox" id="online-banking" name="online-banking">
+                <label for="online-banking">Enable Online Banking</label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox">
+                <input type="checkbox" id="mobile-banking" name="mobile-banking" >
+                <label for="mobile-banking">Enable Mobile Banking</label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="checkbox">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">Terms and Conditions</a>*</label>
+                <div class="error" id="terms-error">You must agree to the terms and conditions</div>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-submit">Submit Application</button>
+    </form>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQ</a>
+            </div>
+            <p>&copy; 2023 Global Trust Bank. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    
+    <!-- <script>
+        document.getElementById('account-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Reset errors
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+            
+            // Validate required fields
+            const requiredFields = [
+                'first-name', 'last-name', 'dob', 'email', 
+                'phone', 'address', 'initial-deposit'
+            ];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    document.getElementById(`${fieldId}-error`).style.display = 'block';
+                    isValid = false;
+                }
+            });
+            
+            // Validate email format
+            const email = document.getElementById('email');
+            if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate phone number
+            const phone = document.getElementById('phone');
+            if (phone.value && !/^[\d\s\-\(\)]{10,}$/.test(phone.value)) {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate initial deposit
+            const deposit = document.getElementById('initial-deposit');
+            if (deposit.value && parseFloat(deposit.value) < 50) {
+                document.getElementById('deposit-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate account type selection
+            const accountTypeSelected = document.querySelector('input[name="account-type"]:checked');
+            if (!accountTypeSelected) {
+                document.getElementById('account-type-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate terms checkbox
+            const termsChecked = document.getElementById('terms').checked;
+            if (!termsChecked) {
+                document.getElementById('terms-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('Thank you for your application! We will process your request shortly.');
+                this.reset();
+            }
+        });
+    </script> -->
+</body>
+</html>

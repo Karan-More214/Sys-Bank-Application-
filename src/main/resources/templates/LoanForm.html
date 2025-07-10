@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sys Bank - Loan Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+   	<link rel="stylesheet" th:href="@{/css/LoanForm.css}">
+   	
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-invoice-dollar"></i> Loan Application</h1>
+            <p>Fill out the form below to apply for a loan</p>
+        </div>
+
+        <!-- Success/Error Messages -->
+        <div th:if="${success}" class="alert alert-success">
+            <i class="fas fa-check-circle"></i> <span th:text="${success}"></span>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i> <span th:text="${error}"></span>
+        </div>
+
+        <form th:action="@{/loan/submit}" method="post" id="loanForm">
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-user"></i>
+                    <h3>Personal Information</h3>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Firstname">First Name*</label>
+                        <input type="text" id="Firstname" name="Firstname" required>
+                        <div class="error" id="firstname-error">Please enter your first name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Lastname">Last Name*</label>
+                        <input type="text" id="Lastname" name="Lastname" required>
+                        <div class="error" id="lastname-error">Please enter your last name</div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dob">Date of Birth*</label>
+                        <input type="date" id="dob" name="dob" required>
+                        <div class="error" id="dob-error">Please enter your date of birth</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PhoneNo">Phone Number*</label>
+                        <input type="tel" id="PhoneNo" name="PhoneNo" required pattern="[0-9]{10,15}">
+                        <div class="error" id="phone-error">Please enter a valid phone number</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Email">Email Address*</label>
+                    <input type="email" id="Email" name="Email" required>
+                    <div class="error" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Address">Address*</label>
+                    <textarea id="Address" name="Address" rows="3" required></textarea>
+                    <div class="error" id="address-error">Please enter your address</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-header">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Loan Information</h3>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="loanType">Loan Type*</label>
+                        <select id="loanType" name="loanType" required>
+                            <option value="">Select Loan Type</option>
+                            <option value="personal">Personal Loan</option>
+                            <option value="education">Education Loan</option>
+                            <option value="car">Car Loan</option>
+                            <option value="house">Home Loan</option>
+                        </select>
+                        <div class="error" id="loantype-error">Please select a loan type</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanAmount">Loan Amount (₹)*</label>
+                        <input type="number" id="loanAmount" name="loanAmount" min="10000" step="1000" required>
+                        <div class="error" id="loanamount-error">Please enter a valid loan amount (minimum ₹10,000)</div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="loanYears">Loan Duration (Years)*</label>
+                        <select id="loanYears" name="loanYears" required>
+                            <option value="">Select Duration</option>
+                            <option value="1">1 Year</option>
+                            <option value="2">2 Years</option>
+                            <option value="3">3 Years</option>
+                            <option value="5">5 Years</option>
+                            <option value="10">10 Years</option>
+                        </select>
+                        <div class="error" id="loanyears-error">Please select loan duration</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="employmentType">Employment Type*</label>
+                        <select id="employmentType" name="employmentType" required>
+                            <option value="">Select Employment Type</option>
+                            <option value="salaried">Salaried</option>
+                            <option value="self-employed">Self-Employed</option>
+                            <option value="business">Business Owner</option>
+                            <option value="student">Student</option>
+                        </select>
+                        <div class="error" id="employment-error">Please select employment type</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="monthlyIncome">Monthly Income (₹)*</label>
+                    <input type="number" id="monthlyIncome" name="monthlyIncome" min="0" step="1000" required>
+                    <div class="error" id="income-error">Please enter your monthly income</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="purpose">Purpose of Loan*</label>
+                    <textarea id="purpose" name="purpose" rows="3" required placeholder="Please describe the purpose of your loan"></textarea>
+                    <div class="error" id="purpose-error">Please describe the purpose of your loan</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the terms and conditions*</label>
+                    <div class="error" id="terms-error">You must agree to the terms and conditions</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                    <i class="fas fa-redo"></i> Reset Form
+                </button>
+                <a href="/user/home" class="btn btn-secondary">
+                    <i class="fas fa-home"></i> Back to Dashboard
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loanForm');
+            
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                
+                // Reset all error messages
+                document.querySelectorAll('.error').forEach(error => {
+                    error.style.display = 'none';
+                });
+                
+                // Validate required fields
+                const requiredFields = [
+                    'Firstname', 'Lastname', 'dob', 'Email', 'PhoneNo', 
+                    'Address', 'loanType', 'loanAmount', 'loanYears', 
+                    'employmentType', 'monthlyIncome', 'purpose'
+                ];
+                
+                requiredFields.forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (!field.value || field.value.trim() === '') {
+                        const errorDiv = document.getElementById(fieldName.toLowerCase() + '-error');
+                        if (errorDiv) {
+                            errorDiv.style.display = 'block';
+                        }
+                        isValid = false;
+                    }
+                });
+                
+                // Validate email format
+                const email = document.getElementById('Email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email.value && !emailRegex.test(email.value)) {
+                    document.getElementById('email-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate phone number
+                const phone = document.getElementById('PhoneNo');
+                const phoneRegex = /^[0-9]{10,15}$/;
+                if (phone.value && !phoneRegex.test(phone.value)) {
+                    document.getElementById('phone-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate loan amount
+                const loanAmount = document.getElementById('loanAmount');
+                if (loanAmount.value && parseFloat(loanAmount.value) < 10000) {
+                    document.getElementById('loanamount-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate terms checkbox
+                const terms = document.getElementById('terms');
+                if (!terms.checked) {
+                    document.getElementById('terms-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    // Scroll to first error
+                    const firstError = document.querySelector('.error[style*="block"]');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

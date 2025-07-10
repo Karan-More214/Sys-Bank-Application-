@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sys Bank - Secure Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/css/Bank_login.css}">
+
+</head>
+<body>
+  <div class="login-container animate__animated animate__fadeInRight">
+    <div class="login-header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#00b3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <h3>SECURE LOGIN</h3>
+      <p>Access your Sys Bank account</p>
+    </div>
+
+    <form id="loginForm" th:action="@{/main/login}" method="post">
+      <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <div class="password-wrapper">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required />
+          </div>
+          <i class="fas fa-eye password-toggle" id="togglePassword" title="Show/Hide Password"></i>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
+          <label class="form-check-label" for="rememberMe">Remember me</label>
+        </div>
+        <a href="forgot-password.html" class="text-decoration-none">Forgot password?</a>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-login" id="loginBtn">
+          <span id="btnText">Login</span>
+          <span id="btnLoader" class="d-none">
+            <span class="spinner"></span>
+            Processing...
+          </span>
+        </button>
+      </div>
+
+      <div class="social-login">
+        <div class="social-title">Or sign in with</div>
+        <div class="social-buttons">
+          <div class="social-btn google">
+            <i class="fab fa-google"></i>
+          </div>
+          <div class="social-btn facebook">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <div class="social-btn twitter">
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-footer">
+        <p>Don't have an account? <a th:href="@{/main/register}">Register Now</a></p>
+        <div class="mt-2">
+          <a href="#" class="me-2"><i class="fas fa-shield-alt me-1"></i> Security</a>
+          <a href="#"><i class="fas fa-question-circle me-1"></i> Help</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+  <script>
+    // Password toggle functionality
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    
+    if (togglePassword && passwordInput) {
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Toggle icon
+        if (type === 'text') {
+          this.classList.remove('fa-eye');
+          this.classList.add('fa-eye-slash');
+          this.title = 'Hide Password';
+        } else {
+          this.classList.remove('fa-eye-slash');
+          this.classList.add('fa-eye');
+          this.title = 'Show Password';
+        }
+      });
+    }
+
+    // Form submission with processing state
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+    
+    if (loginForm && loginBtn && btnText && btnLoader) {
+      loginForm.addEventListener('submit', function(e) {
+        // Basic client-side validation
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        
+        if (!email || !password) {
+          e.preventDefault();
+          alert('Please fill in all required fields');
+          return false;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          e.preventDefault();
+          alert('Please enter a valid email address');
+          return false;
+        }
+        
+        // Show processing state
+        btnText.classList.add('d-none');
+        btnLoader.classList.remove('d-none');
+        loginBtn.disabled = true;
+        
+        // Add a slight delay to show the processing state (optional)
+        // In a real application, this would be handled by the server response
+        setTimeout(() => {
+          // The form will submit naturally after this timeout
+          // This is just to ensure users see the processing state
+        }, 500);
+      });
+    }
+
+    // Add focus effects for better UX
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        const icon = input.parentElement.querySelector('.input-group-text');
+        if (icon) icon.style.color = '#00b3ff';
+      });
+      
+      input.addEventListener('blur', () => {
+        const icon = input.parentElement.querySelector('.input-group-text');
+        if (icon) icon.style.color = '';
+      });
+    });
+
+    // Social login button interactions (placeholder functionality)
+    const socialButtons = document.querySelectorAll('.social-btn');
+    socialButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const platform = this.classList.contains('google') ? 'Google' : 
+                         this.classList.contains('facebook') ? 'Facebook' : 'Twitter';
+        alert(`${platform} login functionality would be implemented here`);
+      });
+    });
+
+    // Reset form state if there's an error (for when form is returned with errors)
+    window.addEventListener('load', function() {
+      if (btnText && btnLoader && loginBtn) {
+        btnText.classList.remove('d-none');
+        btnLoader.classList.add('d-none');
+        loginBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

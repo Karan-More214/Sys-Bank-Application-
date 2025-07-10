@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysBank Admin - Loan Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+  	<link rel="stylesheet" th:href="@{/css/LoanList.css}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Sys<span>Bank</span> Admin</div>
+        <ul class="nav-links">
+            <li><a href="/admin/home"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#" class="active"><i class="fas fa-users"></i> Loan Users</a></li>
+            <li><a href="/main/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Loan Users Table -->
+        <div class="loan-table">
+            <div class="table-header">
+                <h2><i class="fas fa-list"></i> Loan Users Details</h2>
+            </div>
+            <div>
+             <table>
+                <thead>
+                    <tr>
+                        <th>Loan ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Loan Type</th>
+                        <th>Loan Years</th>
+                        <th>Loan Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody th:each="loan:${loan}">
+                    <tr>
+                        <td th:text="${loan.id}"></td>
+                        <td th:text="${loan.firstname}"></td>
+                        <td th:text="${loan.lastname}"></td>
+                        <td><span class="loan-type home" th:text="${loan.loanType}"></span></td>
+                        <td th:text="${loan.loanYears}"></td>
+                        <td >₹ <span th:text="${loan.loanAmount}"></span></td>
+                        <td>
+  <button th:onclick="'initiatePayment(' + ${loan.loanAmount} + ',' + ${loan.id} + ')'">
+    Proceed to pay
+  </button>
+</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            	
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function initiatePayment(amount, loanId) {
+    fetch(`/getTransaction/${amount}`)
+    .then(res => res.json())
+    .then(data => {
+        const options = {
+            key: data.key, // You need to include this in your `orderTransactionDetails` return
+            amount: data.amount * 100, // Razorpay expects paise
+            currency: "INR",
+            name: "SYS Bank",
+            description: "Loan Payment",
+            order_id: data.orderId, // Ensure your entity has this field
+            handler: function (response) {
+                alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                // TODO: save payment to DB via another call
+            },
+            prefill: {
+                name: "Loan User",
+                email: "user@example.com"
+            },
+            theme: {
+                color: "#00d8ff"
+            }
+        };
+        const rzp = new Razorpay(options);
+        rzp.open();
+    })
+    .catch(err => {
+        console.error("Payment initiation failed", err);
+        alert("Something went wrong during payment");
+    });
+}
+
+</script>
+    
+</body>
+</html>

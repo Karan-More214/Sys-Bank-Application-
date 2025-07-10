@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysBank - Loan Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/Bank_Loan.css}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Sys<span>Bank</span></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Personalize Your Financing with SysBank</h1>
+            <p>At SysBank, we understand that every financial need is unique. Choose from our range of flexible loan options designed to help you achieve your personal and professional goals.</p>
+            <a th:href="@{/loan/apply}" class="btn btn-accent">Apply for a Loan</a>
+        </div>
+    </section>
+
+    <!-- Loan Products Section -->
+    <section class="loan-products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Loan Products</h2>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Personal Loan Card -->
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Personal Loans</h3>
+                    <ul class="product-features">
+                        <li><strong>Loan Amount</strong>: ₹1,000 - $100,000</li>
+                        <li><strong>Interest Rates</strong>: Starting at 6.99% APR</li>
+                        <li><strong>Terms</strong>: 1-7 years</li>
+                        <li>No collateral required</li>
+                        <li>Fast approval</li>
+                        <li>Flexible use</li>
+                    </ul>
+                    <p><strong>Perfect for</strong>: Debt consolidation, medical expenses, vacations, or any personal need</p>
+                </div>
+                
+                <!-- Auto Loan Card -->
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Auto Loans</h3>
+                    <ul class="product-features">
+                        <li><strong>Loan Amount</strong>: Up to 100% of vehicle value</li>
+                        <li><strong>Interest Rates</strong>: Starting at 4.25% APR</li>
+                        <li><strong>Terms</strong>: 2-7 years</li>
+                        <li>Competitive rates for new/used vehicles</li>
+                        <li>Quick approval</li>
+                    </ul>
+                    <p><strong>Perfect for</strong>: New car purchases, used vehicles, refinancing</p>
+                </div>
+                
+                <!-- Home Loan Card -->
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home Loans</h3>
+                    <ul class="product-features">
+                        <li><strong>Loan Amount</strong>: Up to ₹5,000,000</li>
+                        <li><strong>Interest Rates</strong>: Fixed and adjustable options</li>
+                        <li><strong>Terms</strong>: 10-30 years</li>
+                        <li>Low down payment options</li>
+                        <li>First-time buyer programs</li>
+                    </ul>
+                    <p><strong>Perfect for</strong>: Home purchases, refinancing, home equity lines</p>
+                </div>
+                
+                <!-- Education Loan Card -->
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education Loans</h3>
+                    <ul class="product-features">
+                        <li><strong>Loan Amount</strong>: Up to $200,000</li>
+                        <li><strong>Interest Rates</strong>: Starting at 3.99% APR</li>
+                        <li><strong>Terms</strong>: Up to 15 years</li>
+                        <li>Deferred payment options</li>
+                        <li>Cosigner release</li>
+                    </ul>
+                    <p><strong>Perfect for</strong>: Undergraduate, graduate, and professional degree programs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose SysBank Loans?</h2>
+            </div>
+            
+            <div class="benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h4>Competitive Rates</h4>
+                    <p>Lowest interest rates in the market</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Fast Approval</h4>
+                    <p>Quick online approval process</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h4>Flexible Terms</h4>
+                    <p>Customizable repayment options</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Expert Advice</h4>
+                    <p>Dedicated loan specialists</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-eye-slash"></i>
+                    </div>
+                    <h4>No Hidden Fees</h4>
+                    <p>Transparent pricing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Consultant Insights Section -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-title">
+            <h2>What Our Loan Experts Say</h2>
+        </div>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"At SysBank, we ensure fast processing and transparency for every auto loan. Our goal is to empower customers with quick approvals."</p>
+                <div class="testimonial-author">
+                    <img src="/Images/Gurunathsir.jpg" alt="Gurunath Kadam" class="author-img">
+                    <span>- Gurunath Kadam, Auto Loan Consultant</span>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"We customize education loan solutions to fit every family’s needs. Helping students succeed is the most rewarding part of my work."</p>
+                <div class="testimonial-author">
+                    <img src="/Images/Kirtimam.jpg" alt="Kirti Khade" class="author-img">
+                    <span>- Kirti Khade, Education Loan Advisor</span>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"With strategic refinancing, we’ve helped hundreds save monthly on their home loans. It’s about making smart financial choices."</p>
+                <div class="testimonial-author">
+                    <img src="/Images/file.png" alt="Darshana Sawant" class="author-img">
+                    <span>- Darshana Sawant, Home Loan Specialist</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+   
+
+    <!-- Application Section -->
+    <section id="application" class="application-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Apply for a Loan</h2>
+                <p>Select the type of loan you'd like to apply for:</p>
+            </div>
+            
+            <div class="application-options">
+                <a th:href="@{/bank/loanform}" class="application-option">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Personal Loan</h3>
+                    <p>Apply for a personal loan with competitive rates</p>
+                </a>
+                
+                <a th:href="@{/bank/loanform}" class="application-option">
+                    <i class="fas fa-car"></i>
+                    <h3>Auto Loan</h3>
+                    <p>Finance your new or used vehicle</p>
+                </a>
+                
+                <a th:href="@{/bank/loanform}" class="application-option">
+                    <i class="fas fa-home"></i>
+                    <h3>Home Loan</h3>
+                    <p>Purchase or refinance your home</p>
+                </a>
+                
+                <a th:href="@{/bank/loanform}" class="application-option">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Education Loan</h3>
+                    <p>Invest in your future education</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">SysBank</div>
+                    <p>Providing financial solutions since 1985. We're committed to helping you achieve your dreams.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Loan Products</a></li>
+                        <li><a href="#">Rates</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 1-800-SYS-BANK</li>
+                        <li><i class="fas fa-envelope"></i> loans@sysbank.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 bandra Kurla Complex,Mumbai-400070</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Business Hours</h4>
+                    <ul>
+                        <li>Monday-Friday: 9am-6pm</li>
+                        <li>Saturday: 10am-4pm</li>
+                        <li>Sunday: Closed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 SysBank. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>*Rates and terms subject to change based on creditworthiness. All loans subject to credit approval. SysBank is an Equal Housing Lender.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

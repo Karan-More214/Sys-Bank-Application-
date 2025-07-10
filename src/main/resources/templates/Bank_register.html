@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sys Bank - Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="shortcut icon" href="../Images/fevicon.png" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/css/Bank_register.css}">
+  <style>
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .success-message {
+      color: #28a745;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .form-control.is-invalid {
+      border-color: #dc3545;
+    }
+    .form-control.is-valid {
+      border-color: #28a745;
+    }
+    .alert {
+      margin-bottom: 1rem;
+    }
+    .password-strength {
+      height: 4px;
+      background-color: #e9ecef;
+      border-radius: 2px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container animate__animated animate__fadeInRight">
+    <div class="register-header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#00b3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <h3>CREATE ACCOUNT</h3>
+      <p>Join Sys Bank in just a few steps</p>
+    </div>
+    
+    <!-- Success Message -->
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="fas fa-check-circle me-2"></i>
+      <span th:text="${success}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    
+    <!-- General Error Message -->
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="fas fa-exclamation-triangle me-2"></i>
+      <span th:text="${error}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    
+    <form id="registerForm" th:action="@{/main/register}" method="post" th:object="${user}" >
+      <!-- Full Name Field -->
+      <div class="mb-3">
+        <label class="form-label">Full Name <i class="fas fa-info-circle tooltip-icon" title="Your legal name as per ID"></i></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input type="text" 
+                 class="form-control" 
+                 th:field="*{fullName}"
+                 th:class="${#fields.hasErrors('fullName')} ? 'form-control is-invalid' : 'form-control'"
+                 required />
+        </div>
+        <div th:if="${#fields.hasErrors('fullName')}" class="error-message">
+          <span th:errors="*{fullName}"></span>
+        </div>
+      </div>
+      
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+         <input type="email" 
+       th:field="*{email}"
+       th:classappend="${#fields.hasErrors('email') or emailError != null} ? 'is-invalid' : ''"
+       class="form-control"
+       required />
+
+        </div>
+        <div th:if="${#fields.hasErrors('email')}" class="error-message">
+          <span th:errors="*{email}"></span>
+        </div>
+        <div th:if="${emailError != null}" class="error-message">
+          <span th:text="${emailError}"></span>
+        </div>
+      </div>
+      
+      <!-- Username Field -->
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-at"></i></span>
+          <input type="text" 
+       th:field="*{username}"
+       th:classappend="${#fields.hasErrors('username') or usernameError != null} ? 'is-invalid' : ''"
+       class="form-control"
+       required />
+
+        </div>
+        <div th:if="${#fields.hasErrors('username')}" class="error-message">
+          <span th:errors="*{username}"></span>
+        </div>
+        <div th:if="${usernameError != null}" class="error-message">
+          <span th:text="${usernameError}"></span>
+        </div>
+      </div>
+      
+      <!-- Password Field -->
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <div class="password-wrapper">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input type="password" 
+                   id="password" 
+                   th:field="*{password}"
+                   class="form-control" 
+                   th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+                   required />
+          </div>
+      
+      <!-- Confirm Password Field -->
+      <div class="mb-3">
+        <label class="form-label">Confirm Password</label>
+        <div class="password-wrapper">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input type="password" id="confirmPassword" class="form-control" required />
+          </div>
+          <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+        </div>
+        <div id="passwordMatch" class="text-end" style="font-size: 0.8rem; color: #ff4444;"></div>
+      </div>
+      
+      <!-- Terms Agreement -->
+      <div class="terms-check">
+        <input type="checkbox" id="termsAgreement" required />
+        <label for="termsAgreement">I agree to the <a href="#" style="color: var(--primary-blue);">Terms of Service</a> and <a href="#" style="color: var(--primary-blue);">Privacy Policy</a></label>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-register" id="registerBtn"  >
+          <span id="btnText">Create Account</span>
+          <span id="btnLoader" class="d-none"><i class="fas fa-circle-notch fa-spin"></i> Processing...</span>
+        </button>
+      </div>
+      
+      <!-- Footer -->
+      <div class="register-footer">
+        <p>Already have an account? <a th:href="@{/main/login}">Sign In</a></p>
+        <div class="mt-2">
+          <a href="#" class="me-2"><i class="fas fa-shield-alt me-1"></i> Security</a>
+          <a href="#"><i class="fas fa-question-circle me-1"></i> Help Center</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+  <script>
+  
+
+  
+  
+  
+  const sendEmailNotification = () => {
+			  const email = document.querySelector('input[name="email"]').value;
+			
+			  fetch('http://localhost:8080/mail/sendEmail', {
+			    method: 'POST',
+			    headers: {
+			      'Content-Type': 'application/json',
+			    },
+			    body: JSON.stringify({ email: email })
+			  })
+			  .then((response) => {
+			    if (response.ok) {
+			      console.log('Email sent successfully');
+			    } else {
+			      console.error('Failed to send email');
+			    }
+			  })
+			  .catch((error) => {
+			    console.error('Error sending email:', error);
+			  });
+};
+  
+  
+  
+  
+  
+  
+  
+  
+    // Password toggle functionality
+    const togglePassword = document.querySelector('#togglePassword');
+    const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+    const password = document.querySelector('#password');
+    const confirmPassword = document.querySelector('#confirmPassword');
+    
+    togglePassword?.addEventListener('click', function() {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
+    
+    toggleConfirmPassword?.addEventListener('click', function() {
+      const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+      confirmPassword.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    // Password strength checker
+    password?.addEventListener('input', function() {
+      const strengthBar = document.getElementById('passwordStrength');
+      const strength = checkPasswordStrength(this.value);
+      
+      if (strength < 2) {
+        strengthBar.style.width = '33%';
+        strengthBar.style.backgroundColor = '#ff4444';
+      } else if (strength < 4) {
+        strengthBar.style.width = '66%';
+        strengthBar.style.backgroundColor = '#ffbb33';
+      } else {
+        strengthBar.style.width = '100%';
+        strengthBar.style.backgroundColor = '#00C851';
+      }
+    });
+    
+    function checkPasswordStrength(password) {
+      let strength = 0;
+      
+      // Length check
+      if (password.length >= 8) strength++;
+      if (password.length >= 12) strength++;
+      
+      // Character type checks
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+      
+      return strength;
+    }
+
+    // Password match checker
+    confirmPassword?.addEventListener('input', function() {
+      const matchText = document.getElementById('passwordMatch');
+      if (this.value !== password.value) {
+        matchText.textContent = "Passwords don't match!";
+        matchText.style.color = '#ff4444';
+      } else if (this.value && this.value === password.value) {
+        matchText.textContent = "Passwords match!";
+        matchText.style.color = '#00C851';
+      } else {
+        matchText.textContent = "";
+      }
+    });
+
+    // Form submission with client-side validation
+    const registerForm = document.getElementById('registerForm');
+    const registerBtn = document.getElementById('registerBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+    
+    registerForm?.addEventListener('submit', function(e) {
+      // Validate passwords match
+      if (password.value !== confirmPassword.value) {
+        e.preventDefault();
+        alert("Passwords don't match!");
+        return false;
+      }
+      
+      // Validate terms agreement
+      if (!document.getElementById('termsAgreement').checked) {
+        e.preventDefault();
+        alert("You must agree to the terms and conditions");
+        return false;
+      }
+      
+       sendEmailNotification(); 
+      // Show loading state
+      btnText.classList.add('d-none');
+      btnLoader.classList.remove('d-none');
+      registerBtn.disabled = true;
+    });
+
+    // Add focus effects for better UX
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        const icon = input.parentElement.querySelector('.input-group-text');
+        if (icon) icon.style.color = '#00b3ff';
+      });
+      
+      input.addEventListener('blur', () => {
+        const icon = input.parentElement.querySelector('.input-group-text');
+        if (icon) icon.style.color = '';
+      });
+    });
+
+    // Real-time validation feedback
+    const fullNameInput = document.querySelector('input[name="fullName"]');
+    const emailInput = document.querySelector('input[name="email"]');
+    const usernameInput = document.querySelector('input[name="username"]');
+
+    // Full name validation
+    fullNameInput?.addEventListener('input', function() {
+      const value = this.value.trim();
+      if (value.length < 2) {
+        this.classList.add('is-invalid');
+        this.classList.remove('is-valid');
+      } else if (/^[a-zA-Z\s]+$/.test(value)) {
+        this.classList.add('is-valid');
+        this.classList.remove('is-invalid');
+      } else {
+        this.classList.add('is-invalid');
+        this.classList.remove('is-valid');
+      }
+    });
+
+    // Email validation
+    emailInput?.addEventListener('input', function() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(this.value)) {
+        this.classList.add('is-valid');
+        this.classList.remove('is-invalid');
+      } else {
+        this.classList.add('is-invalid');
+        this.classList.remove('is-valid');
+      }
+    });
+
+    // Username validation
+    usernameInput?.addEventListener('input', function() {
+      const value = this.value.trim();
+      if (value.length >= 3 && /^[a-zA-Z0-9_]+$/.test(value)) {
+        this.classList.add('is-valid');
+        this.classList.remove('is-invalid');
+      } else {
+        this.classList.add('is-invalid');
+        this.classList.remove('is-valid');
+      }
+    });
+  </script>
+</body>
+</html>
