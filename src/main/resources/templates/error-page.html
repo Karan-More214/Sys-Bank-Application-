@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>System Error | SYS Bank</title>
+  <link rel="shortcut icon" href="/Images/fevicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --sysbank-primary: #0056b3;
+      --sysbank-secondary: #003366;
+      --sysbank-accent: #ffcc00;
+      --sysbank-error: #e63946;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    
+    .error-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+    
+    .error-header {
+      background: linear-gradient(135deg, var(--sysbank-secondary), var(--sysbank-primary));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .error-body {
+      padding: 2rem;
+      background: white;
+      text-align: center;
+    }
+    
+    .bank-logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    
+    .bank-logo span {
+      color: var(--sysbank-accent);
+    }
+    
+    .error-icon {
+      font-size: 4rem;
+      color: var(--sysbank-error);
+      margin: 1rem 0;
+    }
+    
+    .btn-sysbank {
+      background-color: var(--sysbank-primary);
+      color: white;
+      font-weight: 500;
+      padding: 0.75rem 1.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1.5rem;
+    }
+    
+    .btn-sysbank:hover {
+      background-color: var(--sysbank-secondary);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .error-details {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--sysbank-error);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      text-align: left;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #495057;
+    }
+    
+    .security-message {
+      font-size: 0.85rem;
+      color: #6c757d;
+      margin-top: 2rem;
+    }
+    
+    .contact-support {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .error-code {
+      color: var(--sysbank-error);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-card">
+      <div class="error-header">
+        <div class="bank-logo">SYS<span>BANK</span></div>
+        <h2 class="h4 mb-0">System Error</h2>
+      </div>
+      
+      <div class="error-body">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        
+        <h3 class="error-code">Error 500: Internal Server Error</h3>
+        <p class="lead">We're experiencing technical difficulties</p>
+        
+        <p>Our team has been notified and we're working to resolve the issue.</p>
+        
+        <div class="error-details" th:if="${errorMessage}">
+          <strong>Details:</strong>
+          <div th:text="${errorMessage}"></div>
+        </div>
+        
+        <a href="/user/home" class="btn-sysbank">
+          <i class="fas fa-home me-2"></i>Return to Home
+        </a>
+        
+        <div class="security-message">
+          <i class="fas fa-shield-alt me-2"></i>
+          For your security, this error has been logged and our security team has been notified.
+        </div>
+        
+        <div class="contact-support">
+          Need immediate assistance? 
+          <a href="/contact" class="text-decoration-none">Contact Support</a>
+          or call 1-800-SYS-BANK
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Optional: Log error details for support
+    console.error("SYS Bank Error Page: ", 
+      "Error Code: 500\n",
+      "Message: ", document.querySelector('.error-details')?.textContent || 'No additional details available',
+      "\nTimestamp: ", new Date().toISOString());
+  </script>
+</body>
+</html>

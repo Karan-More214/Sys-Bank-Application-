@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>SysBank - Password Recovery</title>
+  <link rel="shortcut icon" href="/Images/fevicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    :root {
+      --sysbank-blue: #0056b3;
+      --sysbank-dark-blue: #003366;
+      --sysbank-gold: #ffcc00;
+    }
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .sysbank-card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .sysbank-header {
+      background: linear-gradient(135deg, var(--sysbank-dark-blue), var(--sysbank-blue));
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .sysbank-body {
+      padding: 30px;
+      background-color: white;
+    }
+    .btn-sysbank {
+      background-color: var(--sysbank-blue);
+      border: none;
+      padding: 10px 25px;
+      font-weight: 600;
+    }
+    .btn-sysbank:hover {
+      background-color: var(--sysbank-dark-blue);
+    }
+    .sysbank-logo {
+      font-weight: 700;
+      color: var(--sysbank-blue);
+      margin-bottom: 5px;
+    }
+    .sysbank-logo span {
+      color: var(--sysbank-gold);
+    }
+    .form-control:focus {
+      border-color: var(--sysbank-blue);
+      box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25);
+    }
+    .security-note {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f0f5ff;
+      border-left: 3px solid var(--sysbank-blue);
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="sysbank-card">
+          <div class="sysbank-header">
+            <h3 class="sysbank-logo">SYS<span>BANK</span></h3>
+            <h2 class="mb-0">Password Recovery</h2>
+          </div>
+          
+          <div class="sysbank-body">
+            <!-- Email Form -->
+            <form th:action="@{/main/forgot-password}" method="post">
+              <div class="mb-4">
+                <p>Enter your registered email address to receive password reset instructions.</p>
+                <label class="form-label fw-bold">Email Address</label>
+                <input type="email" name="email" class="form-control form-control-lg" required th:value="${email}" placeholder="your.email@example.com" />
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-sysbank btn-lg text-white">Continue</button>
+              </div>
+            </form>
+
+            <!-- Reset Password Form (Visible only if email exists) -->
+            <div th:if="${showResetForm}">
+              <hr class="my-4" />
+              <h4 class="mb-4">Reset Your Password</h4>
+              <form th:action="@{/main/reset-password-direct}" method="post">
+                <input type="hidden" name="email" th:value="${email}" />
+                <div class="mb-4">
+                  <label class="form-label fw-bold">New Password</label>
+                  <input type="password" name="password" class="form-control form-control-lg" required placeholder="Enter new password" />
+                  <div class="form-text">Minimum 8 characters with at least one number and special character</div>
+                </div>
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-sysbank btn-lg text-white">Reset Password</button>
+                </div>
+              </form>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger mt-4" role="alert" th:text="${error}"></div>
+            <div th:if="${message}" class="alert alert-success mt-4" role="alert" th:text="${message}"></div>
+            
+            <div class="security-note mt-4">
+              <i class="fas fa-shield-alt me-2"></i> For your security, never share your password with anyone. SysBank will never ask for your password via email or phone.
+            </div>
+            
+            <div class="text-center mt-4">
+              <a th:href="@{/main/login}" class="text-decoration-none">Back to Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html>

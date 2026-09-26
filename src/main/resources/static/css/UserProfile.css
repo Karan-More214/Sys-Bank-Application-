@@ -1,0 +1,343 @@
+:root {
+    --sysbank-blue: #1a3e72;
+    --sysbank-dark-blue: #0d2b57;
+    --sysbank-light-blue: #e6f0ff;
+    --sysbank-accent: #ff7e33;
+    --sysbank-success: #28a745;
+    --sysbank-gray: #6c757d;
+    --sysbank-light-gray: #f8f9fa;
+    --sysbank-border-radius: 12px;
+    --sysbank-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --sysbank-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.sysbank-header {
+    background: linear-gradient(135deg, var(--sysbank-blue), var(--sysbank-dark-blue));
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.sysbank-logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.sysbank-logo i {
+    color: var(--sysbank-accent);
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    transition: var(--sysbank-transition);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: white !important;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    height: 3px;
+    background-color: var(--sysbank-accent);
+    border-radius: 3px;
+}
+
+/* Profile Card Styles */
+.profile-card {
+    border: none;
+    border-radius: var(--sysbank-border-radius);
+    box-shadow: var(--sysbank-box-shadow);
+    overflow: hidden;
+    margin: 2.5rem 0;
+    transition: var(--sysbank-transition);
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #4a6bff, #2541b2);
+    color: white;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(30deg);
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: var(--sysbank-transition);
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    color: var(--sysbank-blue);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.card-title i {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+}
+
+.text-muted {
+    color: var(--sysbank-gray) !important;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+}
+
+.fw-bold {
+    font-weight: 500 !important;
+    color: #333;
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Joint Account Section */
+.joint-holder-section {
+    background-color: var(--sysbank-light-gray);
+    border-radius: var(--sysbank-border-radius);
+    padding: 2rem;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.joint-profile-header {
+    background: linear-gradient(135deg, var(--sysbank-success), #20c997);
+    color: white;
+    padding: 1.5rem;
+    border-radius: var(--sysbank-border-radius);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.joint-profile-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(30deg);
+}
+
+/* Section Divider */
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+    margin: 2rem 0;
+}
+
+/* Buttons */
+.btn-outline-primary {
+    border-color: var(--sysbank-blue);
+    color: var(--sysbank-blue);
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: var(--sysbank-transition);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--sysbank-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 62, 114, 0.2);
+}
+
+.btn-outline-success {
+    border-color: var(--sysbank-success);
+    color: var(--sysbank-success);
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: var(--sysbank-transition);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--sysbank-success);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+/* Badges */
+.account-type-badge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Footer */
+.sysbank-footer {
+    background-color: var(--sysbank-dark-blue);
+    color: white;
+    padding: 3rem 0 2rem;
+    margin-top: 4rem;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: var(--sysbank-transition);
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: var(--sysbank-border-radius);
+    border: none;
+    box-shadow: var(--sysbank-box-shadow);
+}
+
+.modal-header {
+    background-color: var(--sysbank-blue);
+    color: white;
+    border-radius: var(--sysbank-border-radius) var(--sysbank-border-radius) 0 0 !important;
+}
+
+.modal-title i {
+    color: var(--sysbank-accent);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sysbank-header {
+        padding: 0.75rem 0;
+    }
+    
+    .nav-link {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.9rem;
+    }
+    
+    .profile-header {
+        padding: 1.5rem;
+    }
+    
+    .joint-holder-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .sysbank-logo {
+        font-size: 1.4rem;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-pic {
+        margin: 0 auto 1rem;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .footer-links a {
+        margin: 0.25rem 0;
+        display: block;
+    }
+}
+
+/* Animation Enhancements */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Hover Effects */
+.btn-document {
+    transition: var(--sysbank-transition);
+}
+
+.btn-document:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Balance Highlight */
+.balance-highlight {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--sysbank-success);
+    background-color: rgba(40, 167, 69, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
+}

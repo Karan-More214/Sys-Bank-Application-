@@ -1,0 +1,92 @@
+.loan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.loan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: white;
+  border: 1px solid #eef0f2;
+  border-radius: 12px;
+  padding: 1.1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.loan-card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  border-color: #dfe3e8;
+  transform: translateY(-2px);
+}
+
+.loan-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Deliberately one neutral style for every loan type - the type itself isn't
+ * meaningful enough to warrant its own color, and coloring it competed visually
+ * with the status badge, which is the one color that actually helps scanning. */
+.loan-type-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  background: #f1f3f5;
+  color: #6c757d;
+}
+
+.loan-card-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--secondary-color, #2c3e50);
+}
+
+.loan-card-meta {
+  font-size: 0.78rem;
+  color: #868e96;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loan-card-amount-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+.loan-card-amount {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--secondary-color, #2c3e50);
+  line-height: 1.1;
+}
+
+.loan-card-tenure {
+  font-size: 0.8rem;
+  color: #868e96;
+  font-weight: 500;
+}
+
+.loan-card-footer {
+  margin-top: auto;
+  padding-top: 0.65rem;
+  border-top: 1px solid #f1f3f5;
+}
+
+.loan-card-footer .loan-status-actions {
+  width: 100%;
+}

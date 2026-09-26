@@ -1,0 +1,298 @@
+
+        /* Compact card styling */
+        .customer-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .customer-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .customer-card-header {
+            padding: 12px 15px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .customer-avatar {
+            margin-right: 12px;
+        }
+        
+        .customer-avatar img {
+            width: 40px !important;
+            height: 40px !important;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .customer-info h5 {
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+        
+        .customer-info small {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+        
+        .customer-card-body {
+            padding: 15px;
+            background: white;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .info-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #333;
+            font-weight: 500;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+        
+        .account-status {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .balance-amount {
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .card-actions {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 10px 15px;
+            background: #f9f9f9;
+        }
+        
+        .btn-admin {
+            padding: 5px 10px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn-view {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        
+        .btn-edit {
+            background-color: #e2f0fd;
+            color: #0062cc;
+            border: 1px solid #b8d4fb;
+        }
+        
+        .btn-delete {
+            background-color: #fdeaea;
+            color: #dc3545;
+            border: 1px solid #f8c6c6;
+        }
+        
+        /* Compact joint account styling */
+        .joint-account-section {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid rgba(40, 167, 69, 0.15);
+            font-size: 0.75rem;
+        }
+        
+        .joint-account-header {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .joint-profile-pic-container {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            flex-shrink: 0;
+            margin-right: 8px;
+        }
+        
+        .joint-profile-pic {
+            width: 30px !important;
+            height: 30px !important;
+            border: 1px solid white !important;
+        }
+        
+        .joint-profile-placeholder {
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+        }
+        
+        .joint-account-header h6 {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+        
+        .joint-account-header small {
+            font-size: 0.65rem;
+        }
+        
+        .joint-info-row {
+            margin-bottom: 6px;
+            font-size: 0.75rem;
+        }
+        
+        .joint-account-badge {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            margin-top: 5px;
+        }
+        
+        .account-type-badge {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            margin-left: 4px;
+        }
+        
+        /* Make cards same height */
+        .customer-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .customer-card-body {
+            flex-grow: 1;
+        }
+        
+        /* Navbar Styling */
+.sysbank-header {
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+    padding: 0.6rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sysbank-logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.sysbank-logo i {
+    color: #f7b731;
+    margin-right: 0.4rem;
+}
+
+.nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.2s ease-in-out;
+    border-radius: 4px;
+}
+
+.nav .nav-link:hover {
+    background-color: rgba(255,255,255,0.15);
+    color: #fff;
+}
+
+.nav .nav-link.active {
+    background-color: rgba(255,255,255,0.25);
+    color: #fff;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .sysbank-header {
+        padding: 0.5rem 0;
+    }
+    .nav {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+    .nav .nav-link {
+        padding: 0.5rem;
+    }
+}
+        /* Footer Styling */
+.sysbank-footer {
+    background: linear-gradient(135deg, #182848, #4b6cb7);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+}
+
+.sysbank-footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.sysbank-footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.sysbank-footer .small {
+    font-size: 0.8rem;
+}
+
+.sysbank-footer .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .sysbank-footer {
+        text-align: center;
+    }
+    .sysbank-footer .col-md-6 {
+        margin-bottom: 1rem;
+    }
+}
+        

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details | Sys Bank</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/Images/fevicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/Customer.css}">
+     
+  
+</head>
+<body>
+    <!-- Sys Bank Header -->
+    <header class="sysbank-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="sysbank-logo">
+                    <i class="fas fa-university me-2"></i>Sys Bank
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/home"><i class="fas fa-home me-1"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/customers"><i class="fas fa-users me-1"></i> Customers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/main/logout"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <div class="page-header mb-4">
+            <div class="row align-items-center">
+                <!-- Left: Title -->
+                <div class="col-md-4 col-12 mb-2 mb-md-0">
+                    <h2 class="h5 mb-0"><i class="fas fa-users me-2 text-primary"></i>Customer Management</h2>
+                </div>
+
+                <!-- Middle: Search Bar -->
+                <div class="col-md-5 col-12 mb-2 mb-md-0">
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search customers...">
+                    </div>
+                </div>
+
+                <!-- Right: Total Customers -->
+                <div class="col-md-3 col-12 text-md-end">
+                    <div class="stats-card">
+                        <h4 class="h5 mb-0" th:text="${totalCustomers ?: 0}">0</h4>
+                        <small class="text-muted">Total Customers</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Messages -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show py-2" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show py-2" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Customer Cards Grid -->
+        <div th:if="${customer != null and !customer.empty}" class="row">
+            <div th:each="cust : ${customer}" class="col-lg-4 col-md-6 col-12 mb-3">
+                <div class="customer-card" 
+                     th:class="${cust.accountType != null and cust.accountType.toLowerCase() == 'joint'} ? 'customer-card joint-account-card' : 'customer-card'">
+                    
+                    <!-- Card Header with Gradient Blue Background -->
+                    <div class="customer-card-header">
+                        <div class="customer-avatar">
+                            <img th:src="@{'/admin/customer/profile-photo/' + ${cust.id}}"
+                                 alt="Profile"
+                                 class="img-fluid rounded-circle"
+                                 onerror="this.src='https://via.placeholder.com/40'" />
+                        </div>
+                        <div class="customer-info">
+                            <h5 th:text="${cust.firstname + ' ' + cust.lastname}">Customer Name</h5>
+                            <small th:text="'ID: ' + ${cust.id}">ID: </small>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="customer-card-body">
+                        <div class="info-row">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" th:text="${cust.email}">email@example.com</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value" th:text="${cust.phoneNo ?: 'Not provided'}">Not provided</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Account Type</span>
+                            <span class="info-value">
+                                <span th:text="${cust.accountType ?: 'SAVINGS'}">SAVINGS</span>
+                                <span th:if="${cust.accountType != null and cust.accountType.toLowerCase() == 'joint'}" 
+                                      class="account-type-badge joint-type-badge">Joint</span>
+                                <span th:unless="${cust.accountType != null and cust.accountType.toLowerCase() == 'joint'}" 
+                                      class="account-type-badge regular-type-badge">Individual</span>
+                            </span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Balance</span>
+                            <span class="info-value balance-amount" th:text="'₹' + ${#numbers.formatDecimal(cust.balance, 1, 2)}">₹0.00</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Status</span>
+                            <span class="account-status" 
+                                  th:class="'account-status status-' + ${cust.accountStatus?.toLowerCase() ?: 'active'}"
+                                  th:text="${cust.accountStatus ?: 'ACTIVE'}">ACTIVE</span>
+                        </div>
+                        <div class="info-row" th:if="${cust.createdAt}">
+                            <span class="info-label">Joined</span>
+                            <span class="info-value" th:text="${#temporals.format(cust.createdAt, 'dd MMM yyyy')}">Date</span>
+                        </div>
+
+                        <!-- Joint Account Holder Information Section -->
+                        <div th:if="${cust.accountType != null and cust.accountType.toLowerCase() == 'joint'}" 
+                             class="joint-account-section">
+                            
+                            <div class="joint-account-header">
+                                <div class="joint-profile-pic-container">
+                                    <img th:src="@{'/admin/customer/joint-photo/' + ${cust.id}}" 
+                                         alt="Joint Holder Photo" 
+                                         class="joint-profile-pic rounded-circle"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                                    <div class="joint-profile-placeholder rounded-circle d-none justify-content-center align-items-center">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0" th:text="${cust.jointFullName ?: 'Joint Holder'}">Joint Holder</h6>
+                                    <small class="opacity-85" th:text="'ID: ' + ${cust.jointHolderId ?: 'JNT' + cust.id}">Joint ID</small>
+                                </div>
+                            </div>
+
+                            <div class="joint-info-row">
+                                <span class="joint-info-label">Name</span>
+                                <span class="joint-info-value" th:text="${cust.jointFullName ?: 'Not Available'}">Not Available</span>
+                            </div>
+                            
+                            <div class="joint-info-row">
+                                <span class="joint-info-label">Email</span>
+                                <span class="joint-info-value" th:text="${cust.jointEmail ?: 'Not Available'}">Not Available</span>
+                            </div>
+                            
+                            <div class="joint-info-row">
+                                <span class="joint-info-label">Phone</span>
+                                <span class="joint-info-value" th:text="${cust.jointPhoneNo ?: 'Not Available'}">Not Available</span>
+                            </div>
+                            
+                            <div class="text-center mt-1">
+                                <span class="joint-account-badge badge">
+                                    <i class="fas fa-users me-1"></i>Joint Account
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions with View Button -->
+                    <div class="card-actions">
+                        <a th:href="@{'/admin/customer/profile/' + ${cust.id}}" class="btn btn-view btn-admin">
+                            <i class="fas fa-eye me-1"></i> View
+                        </a>
+                        <a th:href="@{'/admin/edit/' + ${cust.id}}" class="btn btn-edit btn-admin">
+                            <i class="fas fa-edit me-1"></i> Edit
+                        </a>
+                        <a th:href="@{'/admin/delete/' + ${cust.id}}" class="btn btn-delete btn-admin">
+                            <i class="fas fa-trash me-1"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div th:if="${customer == null or customer.empty}" class="empty-state text-center py-5">
+            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+            <h5 class="h5">No Customers Found</h5>
+            <p class="text-muted">
+                <span th:if="${searchTerm}">No customers found matching "<strong th:text="${searchTerm}"></strong>"</span>
+                <span th:unless="${searchTerm}">No customers are registered in the system yet.</span>
+            </p>
+            <a href="/admin/home" class="btn btn-primary btn-sm">
+                <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Sys Bank Footer -->
+    <footer class="sysbank-footer py-3 mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2023 Sys Bank. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="small me-2"><i class="fas fa-phone-alt me-1"></i> Contact</a>
+                    <a href="#" class="small me-2"><i class="fas fa-question-circle me-1"></i> Help</a>
+                    <a href="#" class="small me-2"><i class="fas fa-shield-alt me-1"></i> Security</a>
+                    <a href="#" class="small"><i class="fas fa-file-alt me-1"></i> Privacy</a>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 text-center">
+                    <small class="text-muted">Sys Bank is regulated by the Reserve Bank of India</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("searchInput");
+            const customerCards = document.querySelectorAll(".customer-card");
+
+            searchInput.addEventListener("input", function () {
+                const query = this.value.toLowerCase().trim();
+
+                customerCards.forEach((card) => {
+                    const name = card.querySelector(".customer-info h5")?.textContent.toLowerCase();
+                    const email = card.querySelector(".info-value")?.textContent.toLowerCase();
+                    const phone = card.querySelectorAll(".info-value")[1]?.textContent.toLowerCase();
+                    
+                    // Also search joint account holder names
+                    const jointName = card.querySelector(".joint-info-value")?.textContent.toLowerCase() || "";
+                    const jointEmail = card.querySelectorAll(".joint-info-value")[1]?.textContent.toLowerCase() || "";
+
+                    if (
+                        name.includes(query) ||
+                        email.includes(query) ||
+                        phone.includes(query) ||
+                        jointName.includes(query) ||
+                        jointEmail.includes(query)
+                    ) {
+                        card.parentElement.style.display = "block";
+                    } else {
+                        card.parentElement.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

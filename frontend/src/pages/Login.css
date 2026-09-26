@@ -1,0 +1,207 @@
+.login-page {
+  --primary-blue: #00b3ff;
+  --dark-bg: #0b0f18;
+  --input-bg: rgba(255, 255, 255, 0.08);
+
+  background-color: #000;
+  background-image: url('/Images/Webpageimage.png');
+  background-size: cover;
+  background-position: left;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(13, 20, 32, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.35);
+  border: 1px solid rgba(34, 211, 238, 0.5);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.55);
+  transform: translateY(-5px);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.login-header h3 {
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 179, 255, 0.5);
+}
+
+.login-header p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.login-page .form-control {
+  background-color: var(--input-bg);
+  border: none;
+  color: white;
+  height: 50px;
+  border-radius: 8px;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.login-page .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.login-page .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 179, 255, 0.2);
+  outline: none;
+  color: white;
+}
+
+.login-page .input-group-text {
+  background-color: var(--input-bg);
+  border: none;
+  color: var(--primary-blue);
+}
+
+.btn-login {
+  background: linear-gradient(135deg, var(--primary-blue), #0062ff);
+  border: none;
+  border-radius: 8px;
+  height: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(0, 179, 255, 0.4);
+  color: white;
+  width: 100%;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 179, 255, 0.6);
+  color: white;
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.login-footer a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  z-index: 5;
+}
+
+.password-toggle:hover {
+  color: var(--primary-blue);
+}
+
+.social-login {
+  margin-top: 2rem;
+}
+
+.social-title {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.social-title::before,
+.social-title::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background-color: #444;
+}
+
+.social-title::before { left: 0; }
+.social-title::after { right: 0; }
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.social-btn.google { background-color: #DB4437; }
+.social-btn.facebook { background-color: #4267B2; }
+.social-btn.twitter { background-color: #1DA1F2; }
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .login-page {
+    justify-content: center;
+    padding-right: 0;
+    background-position: center;
+  }
+  .login-container {
+    margin-right: 0;
+    padding: 30px;
+  }
+}

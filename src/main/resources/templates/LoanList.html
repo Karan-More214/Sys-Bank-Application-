@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SysBank Admin - Loan Analytics</title>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/> -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="shortcut icon" href="/Images/fevicon.png" type="image/x-icon"/>
+  <style>
+	/* ======================= */
+	/* Enhanced CSS Variables */
+	/* ======================= */
+	:root {
+	  --primary-blue: #0056b3;
+	  --dark-blue: #003366;
+	  --accent-orange: #ff6b00;
+	  --light-gray: #f8f9fa;
+	  --medium-gray: #e9ecef;
+	  --dark-gray: #212529;
+	  --success-green: #28a745;
+	  --warning-yellow: #ffc107;
+	  --danger-red: #dc3545;
+	  --info-teal: #17a2b8;
+	  --border-radius: 12px;
+	  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+	  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	  --sidebar-width: 280px;
+	}
+
+	/* ======================= */
+	/* Base Styles */
+	/* ======================= */
+	* {
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+	  font-family: 'Poppins', sans-serif;
+	}
+
+	body {
+	  background-color: #f8fafc;
+	  color: var(--dark-gray);
+	  line-height: 1.6;
+	  min-height: 100vh;
+	}
+
+	/* ======================= */
+	/* Enhanced Navigation Bar */
+	/* ======================= */
+	.navbar {
+	  background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+	  color: white;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  padding: 0 2.5rem;
+	  height: 80px;
+	  position: fixed;
+	  width: 100%;
+	  top: 0;
+	  z-index: 1000;
+	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	.logo {
+	  font-size: 1.8rem;
+	  font-weight: 700;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.75rem;
+	  letter-spacing: 0.5px;
+	}
+
+	.logo span {
+	  color: var(--accent-orange);
+	  font-weight: 800;
+	}
+
+	.nav-links {
+	  display: flex;
+	  list-style: none;
+	  gap: 2.5rem;
+	}
+
+	.nav-links a {
+	  color: rgba(255, 255, 255, 0.9);
+	  text-decoration: none;
+	  font-weight: 500;
+	  padding: 0.75rem 0;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.75rem;
+	  transition: var(--transition);
+	  position: relative;
+	  font-size: 1rem;
+	}
+
+	.nav-links a:hover {
+	  color: white;
+	  transform: translateY(-2px);
+	}
+
+	.active {
+	  color: white !important;
+	  font-weight: 600;
+	}
+
+	.active::after {
+	  content: '';
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 3px;
+	  background-color: var(--accent-orange);
+	  border-radius: 2px;
+	  transform-origin: left;
+	  animation: scaleIn 0.3s ease-out forwards;
+	}
+
+	@keyframes scaleIn {
+	  from { transform: scaleX(0); }
+	  to { transform: scaleX(1); }
+	}
+
+	/* ======================= */
+	/* Enhanced Container */
+	/* ======================= */
+	.container {
+	  max-width: 1400px;
+	  margin: 110px auto 3rem;
+	  padding: 0 2.5rem;
+	}
+
+	/* ======================= */
+	/* Enhanced Loan Table */
+	/* ======================= */
+	.loan-table {
+	  background: white;
+	  border-radius: var(--border-radius);
+	  box-shadow: var(--box-shadow);
+	  overflow: hidden;
+	  border: 1px solid var(--medium-gray);
+	  transition: var(--transition);
+	}
+
+	.loan-table:hover {
+	  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+	}
+
+	.table-header {
+	  padding: 1.75rem 2.5rem;
+	  border-bottom: 1px solid var(--medium-gray);
+	  background-color: #f8fafc;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	}
+
+	.table-header h2 {
+	  color: var(--dark-blue);
+	  font-size: 1.5rem;
+	  font-weight: 700;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.75rem;
+	}
+
+	table {
+	  width: 100%;
+	  border-collapse: collapse;
+	  font-size: 0.95rem;
+	}
+
+	th, td {
+	  padding: 1.25rem 1.5rem;
+	  border-bottom: 1px solid var(--medium-gray);
+	  text-align: left;
+	}
+
+	th {
+	  background: #f1f3f5;
+	  color: var(--dark-blue);
+	  text-transform: uppercase;
+	  font-size: 0.8rem;
+	  font-weight: 700;
+	  letter-spacing: 0.5px;
+	  position: sticky;
+	  top: 80px;
+	}
+
+	tr:last-child td {
+	  border-bottom: none;
+	}
+
+	tr:hover {
+	  background: rgba(0, 86, 179, 0.03);
+	}
+
+	/* ======================= */
+	/* Enhanced Loan Type Badges */
+	/* ======================= */
+	.loan-type {
+	  display: inline-block;
+	  padding: 0.4rem 0.9rem;
+	  border-radius: 1.5rem;
+	  font-size: 0.8rem;
+	  font-weight: 600;
+	  text-transform: capitalize;
+	  letter-spacing: 0.3px;
+	  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+	}
+
+	.loan-type.home { background: rgba(56,142,60,0.12); color: #388e3c; }
+	.loan-type.personal { background: rgba(25,118,210,0.12); color: #1976d2; }
+	.loan-type.education { background: rgba(255,143,0,0.12); color: #ff8f00; }
+	.loan-type.business { background: rgba(142,36,170,0.12); color: #8e24aa; }
+
+	/* ======================= */
+	/* Enhanced Status Badges */
+	/* ======================= */
+	.status {
+	  padding: 0.4rem 0.9rem;
+	  border-radius: 1.5rem;
+	  font-size: 0.8rem;
+	  font-weight: 600;
+	  text-transform: uppercase;
+	  display: inline-block;
+	  min-width: 100px;
+	  text-align: center;
+	  letter-spacing: 0.5px;
+	  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+	}
+
+	.status-PENDING { background: rgba(255,193,7,0.15); color: #d39e00; }
+	.status-APPROVED { background: rgba(40,167,69,0.15); color: #218838; }
+	.status-REJECTED { background: rgba(220,53,69,0.15); color: #c82333; }
+
+	/* ======================= */
+	/* Enhanced Action Buttons - UPDATED for side-by-side */
+	/* ======================= */
+	.action-buttons {
+	  display: flex;
+	  gap: 0.5rem;
+	  flex-wrap: nowrap; /* Changed from wrap to nowrap */
+	  justify-content: flex-start;
+	  align-items: center;
+	}
+
+	.btn-sm {
+	  padding: 0.4rem 0.8rem;
+	  font-size: 0.8rem;
+	  font-weight: 600;
+	  border: none;
+	  border-radius: 6px;
+	  cursor: pointer;
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.4rem;
+	  transition: var(--transition);
+	  line-height: 1.2;
+	  letter-spacing: 0.3px;
+	  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	  white-space: nowrap; /* Prevents text wrapping */
+	}
+
+	/* Hover effect for all buttons */
+	.btn-sm:hover {
+	  transform: translateY(-2px);
+	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	/* Specific Buttons */
+	.approve-btn { 
+	  background: var(--success-green); 
+	  color: white; 
+	}
+	.approve-btn:hover { 
+	  background: #218838;
+	  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+	}
+
+	.reject-btn { 
+	  background: var(--danger-red); 
+	  color: white; 
+	}
+	.reject-btn:hover { 
+	  background: #c82333;
+	  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+	}
+
+	.view-btn { 
+	  background: var(--info-teal); 
+	  color: white; 
+	}
+	.view-btn:hover { 
+	  background: #138496;
+	  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+	}
+
+	.payment-btn { 
+	  background: var(--accent-orange); 
+	  color: white; 
+	}
+	.payment-btn:hover { 
+	  background: #e05d00;
+	  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+	}
+	.payment-btn:disabled { 
+	  background: #adb5bd; 
+	  cursor: not-allowed; 
+	  transform: none; 
+	  box-shadow: none; 
+	}
+
+	/* ======================= */
+	/* Enhanced Status Text */
+	/* ======================= */
+	.status-text {
+	  font-size: 0.9rem;
+	  font-weight: 500;
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.5rem;
+	}
+
+	.not-eligible { color: var(--danger-red); }
+	.eligible { color: var(--success-green); }
+	.paid { color: #6c757d; }
+
+	/* ======================= */
+	/* Enhanced Modal */
+	/* ======================= */
+	#purposeModal {
+	  display: none;
+	  position: fixed;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  background: white;
+	  padding: 2rem;
+	  border-radius: var(--border-radius);
+	  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+	  width: 90%;
+	  max-width: 500px;
+	  z-index: 2000;
+	  animation: modalFadeIn 0.3s ease;
+	}
+
+	#purposeModal h3 {
+	  color: var(--dark-blue);
+	  margin-bottom: 1.5rem;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.75rem;
+	  font-size: 1.4rem;
+	}
+
+	#purposeModal p {
+	  line-height: 1.7;
+	  margin-bottom: 2rem;
+	  color: var(--dark-gray);
+	}
+
+	#purposeModal button {
+	  background: var(--primary-blue);
+	  color: white;
+	  border: none;
+	  padding: 0.6rem 1.2rem;
+	  border-radius: 6px;
+	  cursor: pointer;
+	  transition: var(--transition);
+	  font-weight: 500;
+	}
+
+	#purposeModal button:hover {
+	  background: var(--dark-blue);
+	  transform: translateY(-2px);
+	}
+
+	@keyframes modalFadeIn {
+	  from { opacity: 0; transform: translate(-50%, -60%); }
+	  to { opacity: 1; transform: translate(-50%, -50%); }
+	}
+
+	/* ======================= */
+	/* Enhanced Loader */
+	/* ======================= */
+	#loader {
+	  display: none;
+	  position: fixed;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  background: white;
+	  padding: 2rem 3rem;
+	  border-radius: var(--border-radius);
+	  box-shadow: var(--box-shadow);
+	  z-index: 3000;
+	  text-align: center;
+	  font-weight: 500;
+	  color: var(--dark-blue);
+	}
+
+	#loader i {
+	  font-size: 2rem;
+	  margin-bottom: 1rem;
+	  color: var(--primary-blue);
+	  animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+	  0% { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
+	}
+
+	/* ======================= */
+	/* Enhanced Responsive Design */
+	/* ======================= */
+	@media (max-width: 992px) {
+	  .container {
+	    padding: 0 1.5rem;
+	  }
+	  
+	  .table-header {
+	    padding: 1.5rem;
+	  }
+	  
+	  th, td {
+	    padding: 1rem;
+	  }
+	}
+
+	@media (max-width: 768px) {
+	  .navbar {
+	    padding: 0 1.5rem;
+	    height: 70px;
+	  }
+	  
+	  .logo {
+	    font-size: 1.5rem;
+	  }
+	  
+	  .nav-links {
+	    gap: 1.5rem;
+	  }
+	  
+	  .container {
+	    margin-top: 100px;
+	    padding: 0 1rem;
+	  }
+	  
+	  table {
+	    display: block;
+	    overflow-x: auto;
+	    white-space: nowrap;
+	  }
+	  
+	  .btn-sm {
+	    width: auto; /* Changed from 100% to auto */
+	    justify-content: center;
+	  }
+	}
+
+	/* For very small screens, allow buttons to wrap */
+	@media (max-width: 480px) {
+	  .action-buttons {
+	    flex-wrap: wrap;
+	  }
+	  
+	  .btn-sm {
+	    width: 100%;
+	    justify-content: center;
+	  }
+	}
+
+	/* ======================= */
+	/* Enhanced Animations */
+	/* ======================= */
+	@keyframes fadeIn {
+	  from { opacity: 0; transform: translateY(-20px); }
+	  to { opacity: 1; transform: translateY(0); }
+	}
+
+	@keyframes fadeOut {
+	  from { opacity: 1; transform: translateY(0); }
+	  to { opacity: 0; transform: translateY(-20px); }
+	}
+
+	/* ======================= */
+	/* Enhanced Alert Styles */
+	/* ======================= */
+	.alert {
+	  position: fixed;
+	  top: 20px;
+	  right: 20px;
+	  padding: 1.25rem 1.75rem;
+	  border-radius: var(--border-radius);
+	  box-shadow: var(--box-shadow);
+	  z-index: 9999;
+	  display: flex;
+	  align-items: center;
+	  gap: 1rem;
+	  animation: fadeIn 0.3s ease-out;
+	  max-width: 400px;
+	}
+
+	.alert-success {
+	  background-color: var(--success-green);
+	  color: white;
+	}
+
+	.alert-error {
+	  background-color: var(--danger-red);
+	  color: white;
+	}
+
+	.alert i {
+	  font-size: 1.5rem;
+	}
+
+	.alert span {
+	  flex: 1;
+	}
+
+	.alert-close {
+	  background: none;
+	  border: none;
+	  color: inherit;
+	  cursor: pointer;
+	  font-size: 1.2rem;
+	  margin-left: 1rem;
+	}
+
+	/* ======================= */
+	/* Enhanced Table Cell Alignment */
+	/* ======================= */
+	th:nth-child(1), td:nth-child(1) { width: 100px; } /* Application ID */
+	th:nth-child(2), td:nth-child(2) { width: 120px; } /* First Name */
+	th:nth-child(3), td:nth-child(3) { width: 120px; } /* Last Name */
+	th:nth-child(4), td:nth-child(4) { width: 120px; } /* Loan Type */
+	th:nth-child(5), td:nth-child(5) { width: 100px; } /* Tenure */
+	th:nth-child(6), td:nth-child(6) { width: 120px; } /* Amount */
+	th:nth-child(7), td:nth-child(7) { width: 120px; } /* Status */
+	th:nth-child(8), td:nth-child(8) { width: 150px; } /* Actions */
+	th:nth-child(9), td:nth-child(9) { width: 100px; } /* View */
+	th:nth-child(10), td:nth-child(10) { width: 100px; } /* Pay */
+  </style>
+</head>
+<body>
+  <!-- Loan Purpose Modal -->
+  <div id="purposeModal">
+    <h3><i class="fas fa-info-circle"></i> Loan Purpose</h3>
+    <p id="purposeText"></p>
+    <div style="text-align: right;">
+      <button onclick="document.getElementById('purposeModal').style.display='none'">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-university"></i> Sys<span>Bank</span> Admin
+    </div>
+    <ul class="nav-links">
+      <li><a href="/admin/home"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a href="#" class="active"><i class="fas fa-file-invoice-dollar"></i> Loan Applications</a></li>
+      <li><a href="/main/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Loan Table -->
+  <div class="container">
+    <div class="loan-table">
+      <div class="table-header">
+        <h2><i class="fas fa-chart-line"></i> Loan Applications Overview</h2>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Application ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Loan Type</th>
+            <th>Tenure</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+            <th>View</th>
+            <th>Pay</th>
+          </tr>
+        </thead>
+        <tbody th:each="loan : ${loan}">
+          <tr>
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.firstname}"></td>
+            <td th:text="${loan.lastname}"></td>
+            <td><span class="loan-type" th:classappend="${loan.loanType.toLowerCase()}" th:text="${loan.loanType}"></span></td>
+            <td th:text="${loan.loanYears} + ' yrs'"></td>
+            <td>₹<span th:text="${loan.loanAmount}"></span></td>
+            <td>
+              <span class="status" th:classappend="'status-' + ${loan.status}" th:text="${loan.status}"></span>
+            </td>
+            <td>
+              <div th:if="${loan.status == 'REJECTED'}" class="status-text not-eligible">
+                <i class="fas fa-times-circle"></i> Not Eligible
+              </div>
+
+              <div th:if="${loan.status == 'PENDING'}" class="action-buttons">
+                <button class="approve-btn btn-sm" th:attr="data-loanid=${loan.id}">
+                  <i class="fas fa-check"></i> Approve
+                </button>
+                <button class="reject-btn btn-sm" th:attr="data-loanid=${loan.id}">
+                  <i class="fas fa-times"></i> Reject
+                </button>
+              </div>
+
+              <div th:if="${loan.status == 'APPROVED' and !loan.paid}" class="status-text eligible">
+                <i class="fas fa-check-circle"></i> Eligible
+              </div>
+
+              <span th:if="${loan.status == 'APPROVED' and loan.paid}" class="status-text paid">
+                <i class="fas fa-check-double"></i> Paid
+              </span>
+            </td>
+            <td>
+              <button class="btn-sm view-btn" th:data-purpose="${loan.purpose}">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </td>
+            <td>
+              <button class="payment-btn btn-sm"
+                      th:if="${loan.status == 'APPROVED' and !loan.paid}"
+                      th:attr="data-amount=${loan.loanAmount}, data-loanid=${loan.id}, data-email=${loan.email}">
+                <i class=""></i> Pay
+              </button>
+              <span th:if="${loan.status == 'APPROVED' and loan.paid}" class="status-text paid">
+                <i class="fas fa-check"></i> Paid
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader">
+    <i class="fas fa-spinner"></i>
+    <div>Processing your request...</div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Payment Button
+      document.querySelectorAll(".payment-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const amount = parseFloat(button.getAttribute("data-amount"));
+          const loanId = button.getAttribute("data-loanid");
+          const email = button.getAttribute("data-email");
+          initiatePayment(amount, loanId, email);
+        });
+      });
+
+      // Approve & Reject Buttons
+      document.querySelectorAll(".approve-btn").forEach(btn => {
+        btn.addEventListener("click", () =>
+          handleStatusChange(btn.dataset.loanid, "APPROVED")
+        );
+      });
+
+      document.querySelectorAll(".reject-btn").forEach(btn => {
+        btn.addEventListener("click", () =>
+          handleStatusChange(btn.dataset.loanid, "REJECTED")
+        );
+      });
+
+      // View Purpose
+      document.querySelectorAll(".view-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const purpose = btn.getAttribute("data-purpose") || "No purpose provided";
+          document.getElementById("purposeText").innerText = purpose;
+          document.getElementById("purposeModal").style.display = "block";
+        });
+      });
+
+      // Close modal when clicking outside
+      document.getElementById("purposeModal").addEventListener("click", function(e) {
+        if (e.target === this) {
+          this.style.display = "none";
+        }
+      });
+    });
+
+    // Loader function
+    function toggleLoader(show) {
+      const loader = document.getElementById("loader");
+      if (loader) loader.style.display = show ? "flex" : "none";
+    }
+
+    // Initiate Razorpay Payment
+    function initiatePayment(amount, loanId, email) {
+      toggleLoader(true);
+      
+      // Format amount to 2 decimal places
+      amount = parseFloat(amount.toFixed(2));
+      
+      fetch(`/getTransaction/${amount}`)
+        .then(res => res.json())
+        .then(data => {
+          toggleLoader(false);
+          const options = {
+            key: data.key,
+            amount: data.amount * 100, // Razorpay accepts paise
+            currency: "INR",
+            name: "SYS Bank",
+            description: "Loan Payment",
+            order_id: data.orderId,
+            handler: function (response) {
+              showSuccessAlert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+              sendEmailNotification(email, loanId, amount);
+              markLoanAsPaid(loanId);
+            },
+            prefill: {
+              name: "Loan User",
+              email: email
+            },
+            theme: {
+              color: "#0056b3"
+            }
+          };
+          const razor = new Razorpay(options);
+          razor.open();
+        })
+        .catch(err => {
+          toggleLoader(false);
+          showErrorAlert("Payment processing failed. Please try again.");
+          console.error(err);
+        });
+    }
+
+    // Show success alert
+    function showSuccessAlert(message) {
+      const alert = document.createElement("div");
+      alert.className = "alert alert-success";
+      alert.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      
+      document.body.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.style.animation = "fadeOut 0.3s ease-out";
+        setTimeout(() => alert.remove(), 300);
+      }, 5000);
+    }
+
+    // Show error alert
+    function showErrorAlert(message) {
+      const alert = document.createElement("div");
+      alert.className = "alert alert-error";
+      alert.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <span>${message}</span>
+        <button class="alert-close" onclick="this.parentElement.remove()">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      
+      document.body.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.style.animation = "fadeOut 0.3s ease-out";
+        setTimeout(() => alert.remove(), 300);
+      }, 5000);
+    }
+
+    // Send Email
+    function sendEmailNotification(email, loanId, amount) {
+      fetch('/mail/loanEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, loanId, amount })
+      })
+      .then(res => res.ok ? console.log("Email sent") : console.error("Email failed"))
+      .catch(err => console.error(err));
+    }
+
+    // Mark Loan as Paid
+    function markLoanAsPaid(loanId) {
+      fetch('/mark-loan-paid', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ loanId: parseInt(loanId) })
+      })
+      .then(res => {
+        if (res.ok) {
+          // Update the DOM to show "Paid"
+          const payButton = document.querySelector(`.payment-btn[data-loanid='${loanId}']`);
+          if (payButton) {
+            const parentTd = payButton.parentElement;
+            parentTd.innerHTML = `
+              <span class="status-text paid">
+                <i class="fas fa-check"></i> Paid
+              </span>
+            `;
+          }
+
+          // Update the status text in the "Actions" column
+          const row = document.querySelector(`tr td:first-child:contains('${loanId}')`)?.closest("tr");
+          if (row) {
+            const actionCell = row.querySelector("td:nth-child(8)");
+            if (actionCell) {
+              actionCell.innerHTML = `
+                <span class="status-text paid">
+                  <i class="fas fa-check-double"></i> Paid
+                </span>
+              `;
+            }
+          }
+        } else {
+          console.error("Failed to update loan");
+        }
+      })
+      .catch(err => console.error(err));
+    }
+
+    // Update Loan Status
+    function handleStatusChange(loanId, status) {
+      toggleLoader(true);
+      fetch("/admin/update-loan-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ loanId, status })
+      })
+      .then(res => {
+        toggleLoader(false);
+        if (res.ok) {
+          location.reload();
+        } else {
+          showErrorAlert("Failed to update loan status");
+        }
+      })
+      .catch(err => {
+        toggleLoader(false);
+        showErrorAlert("Error updating loan status");
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

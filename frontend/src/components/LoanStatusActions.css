@@ -1,0 +1,137 @@
+.loan-status-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* One shared box model for every badge AND every button in this cluster, so a
+ * badge and a button sitting side by side are always the same height - only
+ * background/border/text color differs between them. */
+.loan-status-badge,
+.loan-status-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.loan-status-badge {
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+/* Pale background + dark saturated text, not a solid bright fill - this is the
+ * one place color is doing real work (fast scanning), so it stays muted rather
+ * than loud. Repaid reads as neutral gray rather than blue, since blue is
+ * reserved for the brand/primary actions elsewhere, not status tags. */
+.loan-status-badge-pending  { background: #FFFBEB; color: #92400E; border-color: #FDE68A; }
+.loan-status-badge-approved { background: #ECFDF5; color: #065F46; border-color: #A7F3D0; }
+.loan-status-badge-rejected { background: #FEF2F2; color: #991B1B; border-color: #FECACA; }
+.loan-status-badge-repaid   { background: #F3F4F6; color: #374151; border-color: #E5E7EB; }
+
+.loan-status-btn {
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  border: 1.5px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.loan-status-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.loan-status-btn .spinner-border {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-width: 0.15em;
+}
+
+.loan-status-btn-approve {
+  border-color: #157347;
+  color: #157347;
+}
+.loan-status-btn-approve:hover:not(:disabled) {
+  background: #157347;
+  color: #fff;
+}
+
+.loan-status-btn-reject {
+  border-color: #b02a37;
+  color: #b02a37;
+}
+.loan-status-btn-reject:hover:not(:disabled) {
+  background: #b02a37;
+  color: #fff;
+}
+
+.loan-status-btn-markpaid {
+  border-color: #0a58ca;
+  color: #0a58ca;
+}
+.loan-status-btn-markpaid:hover:not(:disabled) {
+  background: #0a58ca;
+  color: #fff;
+}
+
+.loan-status-btn-confirm {
+  border-color: #b02a37;
+  background: #b02a37;
+  color: #fff;
+}
+.loan-status-btn-confirm:hover:not(:disabled) {
+  background: #8f202b;
+  border-color: #8f202b;
+}
+
+.loan-status-btn-cancel {
+  border-color: #ced4da;
+  color: #6c757d;
+}
+.loan-status-btn-cancel:hover:not(:disabled) {
+  background: #f1f3f5;
+}
+
+.loan-status-note {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b02a37;
+}
+
+.loan-status-actions-confirming {
+  width: 100%;
+}
+
+.loan-status-reason-input {
+  height: 28px;
+  min-width: 160px;
+  flex: 1 1 160px;
+  padding: 0 10px;
+  border: 1.5px solid #ced4da;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.loan-status-reason-input:focus {
+  outline: none;
+  border-color: #b02a37;
+}
+
+.loan-status-reason-input:disabled {
+  opacity: 0.6;
+}

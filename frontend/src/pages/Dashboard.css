@@ -1,0 +1,223 @@
+.dashboard-page {
+  --primary-blue: #2c3e50;
+  --secondary-blue: #3498db;
+  --accent-red: #e74c3c;
+  --success-green: #27ae60;
+  --warning-orange: #f39c12;
+  --light-gray: #f8f9fa;
+  --medium-gray: #e9ecef;
+  --dark-gray: #2c3e50;
+  --light-text: #ecf0f1;
+  --border-radius: 10px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.dashboard-page .navbar {
+  background: linear-gradient(135deg, var(--primary-blue), #1a2a3a) !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem;
+}
+
+.dashboard-page .navbar-brand {
+  font-weight: 700;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.dashboard-page .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0.25rem;
+}
+
+.dashboard-page .nav-link:hover,
+.dashboard-page .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white !important;
+}
+
+.dashboard-page .logout-btn {
+  background-color: var(--accent-red);
+  color: white !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
+
+.dashboard-page .logout-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.dashboard-page .btn-create-account {
+  background-color: var(--success-green);
+  color: white !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
+
+.dashboard-page .btn-create-account:hover {
+  background-color: #219955;
+  transform: translateY(-2px);
+}
+
+.dashboard-page .dashboard-header {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-page .dashboard-header h2 {
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-page .dashboard-header p {
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.dashboard-page .account-summary {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.75rem;
+  box-shadow: var(--box-shadow);
+  height: 100%;
+  border: 1px solid var(--medium-gray);
+}
+
+.dashboard-page .balance-hero {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  border-radius: var(--border-radius);
+  padding: 1.75rem 2rem;
+  box-shadow: var(--box-shadow);
+}
+
+.dashboard-page .balance-hero h5 {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.dashboard-page .balance-hero p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-page .balance-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-page .balance-hero .balance-amount {
+  color: white;
+}
+
+.dashboard-page .card-feature {
+  border: none;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  box-shadow: var(--box-shadow);
+  height: 100%;
+  border: 1px solid var(--medium-gray);
+  cursor: pointer;
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+.dashboard-page .card-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--secondary-blue);
+}
+
+.dashboard-page .card-feature i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-blue);
+}
+
+.dashboard-page .card-feature h5 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: black;
+}
+
+.dashboard-page .card-feature p {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.dashboard-page .btn-primary-custom {
+  background-color: var(--secondary-blue);
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  color: white;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.dashboard-page .btn-primary-custom:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  color: white;
+}
+
+.dashboard-page .list-group-item {
+  padding: 0.75rem 1rem;
+}
+
+.dashboard-page .card-body p {
+  margin-bottom: 0;
+  word-break: break-word;
+}
+
+.dashboard-page .card-header h5 {
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .dashboard-page .balance-amount { font-size: 2rem; }
+  .dashboard-page .navbar-brand { font-size: 1.1rem; }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page .dashboard-header { padding: 1.5rem; }
+  .dashboard-page .card-feature { padding: 1.5rem; }
+  .dashboard-page .card-feature i { font-size: 2rem; }
+}

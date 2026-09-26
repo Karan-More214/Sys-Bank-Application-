@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sys Bank - Open New Account</title>
+    <link rel="shortcut icon" href="/Images/fevicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/Bank_Account.css}">
+
+    
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <div class="container">
+        <div class="form-header">
+            <h1>🏦 Sys Bank Account Opening</h1>
+            <p>Fill in your details to open a new bank account</p>
+        </div>
+
+        <form class="form-body" method="post" action="/bank/submit-form" enctype="multipart/form-data">
+            
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="photo-upload">
+                    <label for="profilePhoto" style="cursor: pointer;">
+                        <div class="photo-preview" id="photoPreview">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <div style="font-size: 12px;">Upload Photo</div>
+                            </div>
+                        </div>
+                    </label>
+                    <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" required onchange="previewImage(this)">
+                    <label for="profilePhoto" class="upload-btn">Choose Photo</label>
+                </div>
+
+                <div style="flex: 1;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name <span>*</span></label>
+                            <input type="text" name="Firstname" required placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name <span>*</span></label>
+                            <input type="text" name="Lastname" required placeholder="Enter last name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="section-header">
+                <i class="fas fa-user"></i>
+                <h3>Personal Information</h3>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Date of Birth <span>*</span></label>
+                    <input type="date" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender <span>*</span></label>
+                    <select name="Gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email Address <span>*</span></label>
+                    <input type="email" name="Email" required placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number <span>*</span></label>
+                    <input type="tel" name="PhoneNo" required placeholder="+91 1234567890">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Residential Address <span>*</span></label>
+                <textarea name="Address" required placeholder="Enter your complete address"></textarea>
+            </div>
+
+            <!-- Document Upload Section -->
+            <div class="section-header">
+                <i class="fas fa-file-alt"></i>
+                <h3>Document Upload</h3>
+            </div>
+
+            <div class="document-uploads">
+                <div class="document-card">
+                    <i class="fas fa-id-card"></i>
+                    <h4>Aadhaar Card</h4>
+                    <label for="aadhaarFile" class="file-upload-btn">Upload Aadhaar</label>
+                    <input type="file" id="aadhaarFile" name="aadhaarFile" accept=".jpg,.jpeg,.png,.pdf" required onchange="showFileName(this, 'aadhaarPreview')">
+                    <div id="aadhaarPreview" class="file-preview"></div>
+                </div>
+
+                <div class="document-card">
+                    <i class="fas fa-id-card-alt"></i>
+                    <h4>PAN Card</h4>
+                    <label for="panFile" class="file-upload-btn">Upload PAN</label>
+                    <input type="file" id="panFile" name="panFile" accept=".jpg,.jpeg,.png,.pdf" required onchange="showFileName(this, 'panPreview')">
+                    <div id="panPreview" class="file-preview"></div>
+                </div>
+            </div>
+
+            <!-- Account Details -->
+            <div class="section-header">
+                <i class="fas fa-piggy-bank"></i>
+                <h3>Account Details</h3>
+            </div>
+
+            <div class="form-group">
+                <label>Account Type <span>*</span></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="savings" name="AccountType" value="savings" required onchange="toggleJointSection()">
+                        <label for="savings">Savings Account</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="current" name="AccountType" value="current" onchange="toggleJointSection()">
+                        <label for="current">Current Account</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="joint" name="AccountType" value="joint" onchange="toggleJointSection()">
+                        <label for="joint">Joint Account</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Initial Deposit Amount (₹) <span>*</span></label>
+                <input type="number" name="Balance" min="500" required placeholder="Minimum ₹500">
+            </div>
+
+            <!-- Joint Account Section -->
+            <div id="jointSection" class="joint-section">
+                <div class="section-header" style="border-color: #27ae60;">
+                    <i class="fas fa-users" style="color: #27ae60;"></i>
+                    <h3>Joint Account Holder Details</h3>
+                </div>
+
+                <div class="profile-section">
+                    <div class="photo-upload">
+                        <label for="jointProfilePhoto" style="cursor: pointer;">
+                            <div class="photo-preview" id="jointPhotoPreview">
+                                <div class="photo-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <div style="font-size: 12px;">Upload Photo</div>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="file" id="jointProfilePhoto" name="jointProfilePhoto" accept="image/*" onchange="previewJointImage(this)">
+                        <label for="jointProfilePhoto" class="upload-btn">Choose Photo</label>
+                    </div>
+
+                    <div style="flex: 1;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" name="jointFirstName" placeholder="Enter first name">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" name="jointLastName" placeholder="Enter last name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" name="jointDob">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="jointGender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="jointEmail" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="jointPhoneNo" placeholder="+91 1234567890">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Residential Address</label>
+                    <textarea name="jointAddress" placeholder="Enter complete address"></textarea>
+                </div>
+
+                <div class="document-uploads">
+                    <div class="document-card">
+                        <i class="fas fa-id-card"></i>
+                        <h4>Aadhaar Card</h4>
+                        <label for="jointAadhaarFile" class="file-upload-btn">Upload Aadhaar</label>
+                        <input type="file" id="jointAadhaarFile" name="jointAadhaarFile" accept=".jpg,.jpeg,.png,.pdf" onchange="showFileName(this, 'jointAadhaarPreview')">
+                        <div id="jointAadhaarPreview" class="file-preview"></div>
+                    </div>
+
+                    <div class="document-card">
+                        <i class="fas fa-id-card-alt"></i>
+                        <h4>PAN Card</h4>
+                        <label for="jointPanFile" class="file-upload-btn">Upload PAN</label>
+                        <input type="file" id="jointPanFile" name="jointPanFile" accept=".jpg,.jpeg,.png,.pdf" onchange="showFileName(this, 'jointPanPreview')">
+                        <div id="jointPanPreview" class="file-preview"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Services -->
+            <div class="section-header">
+                <i class="fas fa-cog"></i>
+                <h3>Additional Services</h3>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="onlineBanking" name="online-banking">
+                <label for="onlineBanking">Enable Online Banking</label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="mobileBanking" name="mobile-banking">
+                <label for="mobileBanking">Enable Mobile Banking</label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">Terms and Conditions</a> <span style="color: #e74c3c;">*</span></label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-check-circle"></i> Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('photoPreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Profile Photo">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function previewJointImage(input) {
+            const preview = document.getElementById('jointPhotoPreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Joint Profile Photo">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function showFileName(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const fileName = input.files[0].name;
+                const fileURL = URL.createObjectURL(input.files[0]);
+                preview.innerHTML = `✓ <a href="${fileURL}" target="_blank">${fileName}</a>`;
+            }
+        }
+
+        function toggleJointSection() {
+            const jointRadio = document.getElementById('joint');
+            const jointSection = document.getElementById('jointSection');
+            
+            if (jointRadio.checked) {
+                jointSection.classList.add('active');
+            } else {
+                jointSection.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

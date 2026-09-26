@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Password Recovery - SYS Bank</title>
+  <link rel="shortcut icon" href="/Images/fevicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --sysbank-primary: #0056b3;
+      --sysbank-secondary: #003366;
+      --sysbank-accent: #ffcc00;
+      --sysbank-light: #f8f9fa;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    
+    .auth-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    
+    .auth-header {
+      background: linear-gradient(135deg, var(--sysbank-secondary), var(--sysbank-primary));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .auth-body {
+      padding: 2rem;
+      background: white;
+    }
+    
+    .bank-logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    
+    .bank-logo span {
+      color: var(--sysbank-accent);
+    }
+    
+    .btn-sysbank {
+      background-color: var(--sysbank-primary);
+      color: white;
+      font-weight: 500;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    
+    .btn-sysbank:hover {
+      background-color: var(--sysbank-secondary);
+      color: white;
+      transform: translateY(-1px);
+    }
+    
+    .form-control {
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #ced4da;
+    }
+    
+    .form-control:focus {
+      border-color: var(--sysbank-primary);
+      box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.15);
+    }
+    
+    .security-note {
+      font-size: 0.85rem;
+      color: #6c757d;
+      background-color: #f8f9fa;
+      border-left: 3px solid var(--sysbank-primary);
+      padding: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    
+    .password-rules {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+    
+    .back-link {
+      color: var(--sysbank-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="auth-card">
+          <div class="auth-header">
+            <div class="bank-logo">SYS<span>BANK</span></div>
+            <h2 class="h4 mb-0">Password Recovery</h2>
+          </div>
+          
+          <div class="auth-body">
+            <!-- Email Check Form -->
+            <form th:action="@{/main/forgot-password}" method="post" th:if="${showResetForm == null or !showResetForm}">
+              <div class="mb-4">
+                <p class="text-muted">Enter your registered email address to reset your password.</p>
+                <label class="form-label fw-semibold">Email Address</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                  <input type="email" name="email" class="form-control" required th:value="${email}" placeholder="your.email@example.com" />
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-sysbank">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+              </div>
+            </form>
+
+            <!-- Reset Form (if email exists) -->
+            <div th:if="${showResetForm}">
+              <h4 class="mb-4">Reset Your Password</h4>
+              <form th:action="@{/main/reset-password-direct}" method="post">
+                <input type="hidden" name="email" th:value="${email}" />
+                <div class="mb-4">
+                  <label class="form-label fw-semibold">New Password</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" name="password" class="form-control" required placeholder="Create new password" />
+                    <button class="btn btn-outline-secondary toggle-password" type="button">
+                      <i class="far fa-eye"></i>
+                    </button>
+                  </div>
+                  <div class="password-rules">
+                    <i class="fas fa-info-circle me-1"></i> Password must be at least 8 characters long and contain at least one number and special character.
+                  </div>
+                </div>
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-sysbank">Reset Password <i class="fas fa-sync-alt ms-2"></i></button>
+                </div>
+              </form>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger mt-4" role="alert">
+              <i class="fas fa-exclamation-circle me-2"></i> <span th:text="${error}"></span>
+            </div>
+            
+            <div th:if="${message}" class="alert alert-success mt-4" role="alert">
+              <i class="fas fa-check-circle me-2"></i> <span th:text="${message}"></span>
+            </div>
+            
+            <div class="security-note">
+              <i class="fas fa-shield-alt me-2"></i> For your security, never share your password. SYS Bank will never ask for your password via email or phone.
+            </div>
+            
+            <div class="text-center mt-3">
+              <a th:href="@{/main/login}" class="back-link"><i class="fas fa-arrow-left me-1"></i> Back to Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    document.querySelectorAll('.toggle-password').forEach(button => {
+      button.addEventListener('click', function() {
+        const input = this.closest('.input-group').querySelector('input');
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          input.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

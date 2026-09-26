@@ -1,0 +1,330 @@
+:root {
+  --primary-blue: #2c3e50;
+  --secondary-blue: #3498db;
+  --accent-red: #e74c3c;
+  --success-green: #27ae60;
+  --warning-orange: #f39c12;
+  --light-gray: #f8f9fa;
+  --medium-gray: #e9ecef;
+  --dark-gray: #2c3e50;
+  --light-text: #ecf0f1;
+  --border-radius: 10px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  line-height: 1.6;
+}
+
+/* Toast Messages */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1055;
+}
+
+/* Navigation */
+.navbar {
+  background: linear-gradient(135deg, var(--primary-blue), #1a2a3a) !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.navbar-brand i {
+  font-size: 1.4rem;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0.25rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white !important;
+}
+
+.nav-link i {
+  font-size: 1rem;
+}
+
+.logout-btn {
+  background-color: var(--accent-red);
+  color: white !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.btn-create-account {
+  background-color: var(--success-green);
+  color: white !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-create-account:hover {
+  background-color: #219955;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+/* Dashboard Content */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-header::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  transform: rotate(30deg);
+}
+
+.dashboard-header h2 {
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-header p {
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+.account-summary {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.75rem;
+  box-shadow: var(--box-shadow);
+  height: 100%;
+  border: 1px solid var(--medium-gray);
+}
+
+.balance-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.card-feature {
+  border: none;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  box-shadow: var(--box-shadow);
+  height: 100%;
+  border: 1px solid var(--medium-gray);
+  cursor: pointer;
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.card-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--secondary-blue);
+}
+
+.card-feature i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-blue);
+}
+
+.card-feature h5 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: black;
+}
+
+.card-feature p {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.btn-primary-custom {
+  background-color: var(--secondary-blue);
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  color: white;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary-custom:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Modal Styling */
+.modal-header {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+}
+
+.modal-header .btn-close {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+.input-group-text {
+  background-color: var(--light-gray);
+}
+
+.form-control:focus {
+  border-color: var(--secondary-blue);
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Alert Styling */
+.alert-info {
+  background-color: rgba(52, 152, 219, 0.15);
+  border-color: rgba(52, 152, 219, 0.2);
+  color: #1a5276;
+}
+
+.alert-warning {
+  background-color: rgba(243, 156, 18, 0.15);
+  border-color: rgba(243, 156, 18, 0.2);
+  color: #7e5109;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .balance-amount {
+    font-size: 2rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 1.5rem;
+  }
+
+  .card-feature {
+    padding: 1.5rem;
+  }
+
+  .card-feature i {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem !important;
+    font-size: 0.9rem;
+  }
+
+  .dashboard-header {
+    padding: 1.25rem;
+  }
+
+  .balance-amount {
+    font-size: 1.75rem;
+  }
+}
+/* Make both cards full height and clean spacing */
+.row .card.h-100 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Optional: Add subtle hover effect on both cards */
+.row .card.h-100:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+  transition: var(--transition);
+}
+
+/* List items (transactions) spacing */
+.list-group-item {
+  padding: 0.75rem 1rem;
+}
+
+/* Ensure text is wrapped properly in account info */
+.card-body p {
+  margin-bottom: 0;
+  word-break: break-word;
+}
+
+/* Card headers improvement */
+.card-header h5 {
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+/* 1. Add spacing between banking service cards */
+.row.g-4 > .col-md-6,
+.row.g-4 > .col-lg-3 {
+  padding: 0 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* 2. Space between Banking Services and Next Section */
+.banking-section {
+  margin-bottom: 2rem;
+}
+
+/* Optional: Align section titles better */
+h4.mb-4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}

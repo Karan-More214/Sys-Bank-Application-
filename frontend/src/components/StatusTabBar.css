@@ -1,0 +1,91 @@
+.status-tab-bar {
+  padding: 0.75rem 1.25rem;
+}
+
+.status-tab-bar-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  max-width: 100%;
+  background: #f1f3f5;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 0.3rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.status-tab-bar-track::-webkit-scrollbar {
+  height: 4px;
+}
+
+.status-tab-bar-track::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.status-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.status-tab:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.06);
+  color: #343a40;
+}
+
+.status-tab.active {
+  background: #3498db;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(52, 152, 219, 0.45);
+}
+
+.status-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Same muted palette as the card status badges (LoanStatusActions.css) - the
+ * tab bar and the cards below it describe the same statuses, so they read as
+ * one consistent color system rather than two different intensities. */
+.status-tab-badge-neutral { background: #e9ebee; color: #495057; }
+.status-tab-badge-warning { background: #FFFBEB; color: #92400E; }
+.status-tab-badge-success { background: #ECFDF5; color: #065F46; }
+.status-tab-badge-info    { background: #F3F4F6; color: #374151; }
+.status-tab-badge-danger  { background: #FEF2F2; color: #991B1B; }
+
+.status-tab.active .status-tab-badge {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+@media (max-width: 576px) {
+  .status-tab-bar {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .status-tab {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+  }
+}

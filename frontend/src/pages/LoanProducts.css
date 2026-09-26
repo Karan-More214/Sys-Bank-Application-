@@ -1,0 +1,98 @@
+.loan-products-page .loan-products-section-title {
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 1.25rem;
+}
+
+.loan-products-page .loan-products-cta {
+  font-size: 1rem;
+}
+
+.loan-products-page .loan-product-card,
+.loan-products-page .loan-benefit-card,
+.loan-products-page .loan-testimonial-card {
+  border: 1px solid var(--medium-gray);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.loan-products-page .loan-product-card:hover,
+.loan-products-page .loan-benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--secondary-blue);
+}
+
+.loan-products-page .loan-product-icon {
+  font-size: 2.25rem;
+  color: var(--secondary-blue);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.loan-products-page .loan-product-card h5 {
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 0.75rem;
+}
+
+.loan-products-page .loan-product-features {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.loan-products-page .loan-product-features li {
+  padding-left: 1.4rem;
+  position: relative;
+  margin-bottom: 0.4rem;
+}
+
+.loan-products-page .loan-product-features li::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  color: var(--warning-orange);
+}
+
+.loan-products-page .loan-product-perfect-for {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.loan-products-page .loan-benefit-icon {
+  font-size: 1.75rem;
+  color: var(--warning-orange);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.loan-products-page .loan-benefit-card h6 {
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+.loan-products-page .loan-testimonial-card {
+  background-color: white;
+}
+
+.loan-products-page .loan-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  font-size: 0.9rem;
+}
+
+.loan-products-page .loan-testimonial-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
